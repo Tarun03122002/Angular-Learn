@@ -14,3 +14,20 @@
   singleton class deign pattern is achieved
 
 </div>
+
+<div style="margin-top: 200px;">
+  <b> Use @Injectable() annotation to inject one service into another service</b>
+  <br>
+  <b>Previously Injectable is provided only to those services which are dependent on other service(receiving service).
+    For eg; Here User Service is dependent on Logger Service ,so we provide Injectable annotation to UserService.But in Latest
+  angular version,Injectable annotation is used at all services.so better to use in all service </b>
+  <b> Then Creating instance in constructor</b>
+  <br>
+  <b>Provide service in providers array of AppModule.Also we can providedIn : root
+     inside {{" @Injectable({ providedIn : 'root'})"}} which also means means provides service to App Module</b>
+
+
+    <div style="margin-top: 20px;">
+      here it is standalone project,so even if i provide in app root ,still i need to provide LoggerService in providerArray where UserService is used
+    </div>
+</div>

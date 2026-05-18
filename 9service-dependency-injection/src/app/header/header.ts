@@ -10,7 +10,7 @@ import { SubscriptionService } from '../services/subscription.service';
   providers : [SubscriptionService]
 })
 // Adding Depenendcy steps 
-// 1) What to add dependency
+// 1) What to add 
 export class Header {
 
   // 2)How to add dependency

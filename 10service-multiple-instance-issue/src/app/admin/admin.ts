@@ -3,13 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { UserList } from './user-list/user-list';
 import { UserService } from '../services/user.service';
 import { UserDto } from '../user.dto';
+import { LoggerService } from '../services/logger.service';
 
 @Component({
   selector: 'app-admin',
   imports: [FormsModule,UserList],
   templateUrl: './admin.html',
   styleUrl: './admin.scss',
-  providers: [UserService]
+  providers: [UserService,LoggerService]
 })
 export class Admin {
 
