@@ -1,0 +1,48 @@
+<div style="display: flex; align-items: center; flex-direction: column;">
+    <h5>Add User</h5>
+
+    <div
+        style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 40%; border: solid 1px grey; padding: 20px;">
+        <div style="display: flex; gap: 40px;">
+            <div>
+                <label for="name"> Name : </label>
+                <input [(ngModel)]="userName" type="text"  id="name" />
+            </div>
+
+            <div>
+                <label for="gender">Gender :</label>
+                <select [(ngModel)]="gender" id="gender">
+                    @for(genderOption of genderOptions;track genderOption){
+                    <option [value]="genderOption.value">{{genderOption.label}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 40px;">
+            <div>
+                <label for="subscCategory">Subsc. Category :</label>
+                <select [(ngModel)]="subscCategory" id="subscCategory">
+                    @for(subscCategory of subscCategories;track subscCategory){
+                    <option [value]="subscCategory?.value">{{subscCategory?.label}}</option>
+                    }
+                </select>
+            </div>
+
+            <div>
+                <label for="subStatus">Subsc Status :</label>
+                <select [(ngModel)]="subscStatus" id="subStatus">
+                    @for(subscStatusOption of subscStatusOptions;track subscStatusOption){
+                    <option [value]="subscStatusOption.value">{{subscStatusOption.label}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <button (click)="addUser()">Create User</button>
+    </div>
+</div>
+<div>
+    <h2 style="text-align: center;">USERS LIST</h2>
+    <app-user-list></app-user-list>
+</div>
