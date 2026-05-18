@@ -1,5 +1,5 @@
 
-import { Inject, Injectable } from "@angular/core";
+import { EventEmitter, Inject, Injectable } from "@angular/core";
 import { LoggerService } from "./logger.service";
 import { UserDto } from "../user.dto";
 import { LOGGER_TOKEN } from "../app/app-module";
@@ -23,6 +23,15 @@ export class UserService{
         {name:'Priyanshu',gender:'F',subscCategory:'Y',subsStatus:'A'}
 
     ]
+
+    // Emit event containing userDto and subsribe to that event to get dto
+    // use service which has custom event emitter 
+
+    selectedUserDetail :EventEmitter<UserDto> = new EventEmitter<UserDto>() 
+
+    showSelectedUserDetails(user:UserDto){
+        this.selectedUserDetail.emit(user)
+    }
 
     addUser(user:UserDto){
         this.userList.push(user)

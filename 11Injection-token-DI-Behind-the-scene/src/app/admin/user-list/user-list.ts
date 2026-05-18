@@ -20,4 +20,8 @@ export class UserList {
   constructor(private userService:UserService){
     this.userList = this.userService.getAllUsers()
   }
+
+  showUserDetail(user:UserDto){
+    this.userService.showSelectedUserDetails(user)
+  }
 }
