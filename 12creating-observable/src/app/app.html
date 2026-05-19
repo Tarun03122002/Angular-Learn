@@ -1,0 +1,52 @@
+<div>
+
+  <h1>What is Observable?</h1>
+
+  <b>Observable is used to handle asynchronous data.Observable is basically a function which converts ordinary data into
+    an observable </b>
+
+  <h2>Ways to handle asynchronous data</h2>
+  <li>
+    1-> Promise
+  </li>
+  <li>2 -> Observable</li>
+
+  <h1>Diff B/w Observable and Promise</h1>
+  <b>
+    <div>
+      For stream of data,promise will return only single value
+    </div>
+    <div>
+      Whereas Obserable will return multiple values.
+      Also It will listen return values when it is subscribed whereas promise will return value even if it not required.
+    </div>
+  </b>
+
+
+  <h3> Observable Pattern</h3>
+  <div style="display: flex; gap: 10px;">
+    <div style="display: flex; flex-direction: column;">
+      <p>Observable</p>
+      <p>Like Event emitter next(),error(),complete()</p>
+    </div>
+    <div style="margin-top: 20px;"> {{"---------->"}}</div>
+    <div style="display: flex; flex-direction: column;">
+      <p>Observer</p>
+      <p>listen event Like Event Listener using subscribe() method</p>
+    </div>
+    <div style="margin-top: 20px;"> {{"---------->"}}</div>
+
+    <div style="display: flex; flex-direction: column;">
+      <p>Event Handler</p>
+      <p>using callback method in subscribe next(),error(),complete()</p>
+    </div>
+
+  </div>
+</div>
+<div style="margin-top: 50px; display: flex; flex-direction: column;  justify-content: center; gap: 10px;">
+  <h3>Number</h3>
+  @for(num of dataList;track $index){
+    <div style="color:grey;padding: 10px; width: 100px; height: 30px;background-color: black;">{{num}}</div>
+  }
+  <button style="width: 140px;" (click)="onClick()">Show Numbers</button>
+</div>
