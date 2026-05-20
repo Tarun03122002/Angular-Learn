@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { from, Observable, of } from 'rxjs';
+import { from, fromEvent, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,8 @@ import { from, Observable, of } from 'rxjs';
 })
 export class AppComponent {
 
-dataList :any[]= []
- toggle : boolean = false
+  dataList: any[] = []
+  toggle: boolean = false
 
 
   // 1) Creating an observable (emitting event)
@@ -31,8 +31,8 @@ dataList :any[]= []
 
 
   // using of operator
-  newArr = [1,2,3,4,5]
-  newArr2 = ['a','b','c','d']
+  newArr = [1, 2, 3, 4, 5]
+  newArr2 = ['a', 'b', 'c', 'd']
 
   // testObs = of(this.newArr,this.newArr2,true,'null') 
   // testObs = of(this.newArr2) 
@@ -40,22 +40,43 @@ dataList :any[]= []
 
   // using from operator
   // testObs = from(this.newArr) //emit value in iterable one by one
- testObs = from('89001211')
+  testObs = from('89001211')
 
 
   // 2) Subscribing an observable
   // Event Listen using subscribe
-  onClick(){
+  onClick() {
     this.toggle = !this.toggle
-    this.testObs.subscribe((data : any) => {
+    this.testObs.subscribe((data: any) => {
       console.log(data);
-      
-      this.dataList = [...this.dataList,data]
-       });
+
+      this.dataList = [...this.dataList, data]
+    });
 
     // event handler ,first callback is next() method
     // (data : any) => {
     //   this.dataList = data
     // }
+  }
+
+
+  // fromEvent operator
+
+  @ViewChild('buttonRef') buttonRef!: ElementRef
+
+  ngAfterViewInit() {
+    this.addItemInContainer()
+  }
+
+  addItemInContainer() {
+    let item = 0
+
+    fromEvent(this.buttonRef.nativeElement, 'click').subscribe(() => {
+      let div = document.createElement('div')
+      div.innerText = `Item ${++item}`
+      div.className = 'data-list'
+      document.getElementById('container')?.appendChild(div)
+    })
+
   }
 }
