@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { from, fromEvent, Observable, of } from 'rxjs';
+import { filter, from, fromEvent, map, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -64,19 +64,44 @@ export class AppComponent {
 
   @ViewChild('buttonRef') buttonRef!: ElementRef
 
-  ngAfterViewInit() {
-    this.addItemInContainer()
-  }
+  // ngAfterViewInit() {
+  //   this.addItemInContainer()
+  // }
 
   addItemInContainer() {
     let item = 0
 
-    fromEvent(this.buttonRef.nativeElement, 'click').subscribe(() => {
+    fromEvent(this.buttonRef?.nativeElement, 'click').subscribe(() => {
       let div = document.createElement('div')
       div.innerText = `Item ${++item}`
       div.className = 'data-list'
       document.getElementById('container')?.appendChild(div)
     })
 
+  }
+
+
+
+  // using map operator
+  arr = [2,4,6,8,10]
+  newObs = from(this.arr)
+  mappedObs = this.newObs.pipe(map((val : number) =>  val*2 ))
+  filterObs = from(this.arr).pipe(filter(val => {return val%4==0}))
+  ngOnInit(){
+
+  }
+
+  testMapRxJsOperator(){
+        this.mappedObs.subscribe(val => {
+      console.log("map oprator",val);
+      
+    })
+
+  }
+  testFilterOperator(){
+        this.filterObs.subscribe(val => {
+            console.log("filter oprator",val);
+
+    })
   }
 }
