@@ -1,0 +1,41 @@
+<div>
+  <h2>Unsubscribe from Observable</h2>
+  <div style="display: flex; gap: 20px;">
+    <div>
+      <h2>DataList 1</h2>
+      @for(element of data1;track $index){
+      <div></div>
+      {{element}}
+      }
+      <div>
+        <button (click)="subscribe1()">Subscribe</button>
+        <button (click)="unsubscribe1()">Unsubscribe</button>
+
+      </div>
+    </div>
+    <div>
+      <h2>DataList 2</h2>
+      @for(element of data2;track $index){
+      <div></div>
+      {{element}}
+      }
+      <div>
+        <button (click)="subscribe2()">Subscribe</button>
+        <button (click)="unsubscribe2()">Unsubscribe</button>
+
+      </div>
+    </div>
+    <div>
+      <h2>DataList 3</h2>
+      @for(element of data3;track $index){
+      <div></div>
+      {{element}}
+      }
+      <div>
+        <button (click)="subscribe3()">Subscribe</button>
+        <button (click)="unsubscribe3()">Unsubscribe</button>
+
+      </div>
+    </div>
+  </div>
+</div>
