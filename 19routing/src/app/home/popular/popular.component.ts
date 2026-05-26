@@ -29,6 +29,7 @@ export class PopularComponent {
     // route segements -> localhost:4200/home/courses/course2
     // here home,courses,course2 are route sgements
   
+    // navigateByUrl takes a string value as argument and string value should contain all the route segments
     // this.router.navigate(['home','courses'])
     this.router.navigate(['courses'])
     // this.router.navigateByUrl('courses')
