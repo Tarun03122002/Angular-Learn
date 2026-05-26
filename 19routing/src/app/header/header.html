@@ -4,9 +4,10 @@
       <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
       <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
       <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-      <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
+      <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
     </ul>
-  </div>  
+  </div>
+
   <div class="page-header-secondary-nav">
     <a href="#">SEARCH</a>
     <a href="#">POPULAR</a>
@@ -15,27 +16,38 @@
     <a href="#">CONTACT</a>
   </div>
 </div>
+<h2>routerLink directive is a directive that binds HTML element to a route.It catches click event on html element and it
+  result in navigating to that route </h2>
+<h4>href="home" will refresh the application and its' state,so we will not use this</h4>
+<h2>routerLinkActive directive is used to add or remove class from html element that is bound to RouterLink.It's use
+  case is to show highlight
+  the currently active route </h2>
+<h4>Note : when a child route is active ,then all the parent routes are also marked as active,in that case routerLink is
+  applied to active child route and all its parent route</h4>
+<h3>routerLinkActiveOptions directive pass extra paramters exact to inform routerLinkActive how to match route for
+  styling active route</h3>
 <div class="page-header">
-    <!--HOME HEADER-->
-    <div class="page-header-logo">
-      <h2>procademy</h2>
-    </div>
-    <div>
-      <div class="page-header-secondary">
-        
-      </div>      
-      <div class="page-header-primary">
-        <div class="page-header-primary-nav">
-            <a href="#">HOME</a>
-            <a href="#">ABOUT</a>
-            <a href="#">CONTACT</a>
-            <a href="#">COURSES</a>
-        </div>
-        <div class="page-header-login-logout">
-            <a href="#">LOGIN</a>
-            <a href="#">LOGOUT</a>
-        </div>
-      </div>
-      
-    </div>
+  <!--HOME HEADER-->
+  <div class="page-header-logo">
+    <h2>procademy</h2>
   </div>
+  <div>
+    <div class="page-header-secondary">
+
+    </div>
+    <div class="page-header-primary">
+      <div class="page-header-primary-nav">
+        <a routerLink="home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">HOME</a>
+        <!-- //test this <a routerLink="" routerLinkActive="active">HOME</a>  use routerLinkActiveOptions  to fix this -->
+        <a [routerLink]="'about'" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">ABOUT</a>
+        <a routerLink="contact" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">CONTACT</a>
+        <a routerLink="courses" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">COURSES</a>
+      </div>
+      <div class="page-header-login-logout">
+        <a href="#">LOGIN</a>
+        <a href="#">LOGOUT</a>
+      </div>
+    </div>
+
+  </div>
+</div>

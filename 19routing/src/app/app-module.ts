@@ -1,7 +1,5 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Home } from './home/home';
 import { Header } from './header/header';
@@ -12,15 +10,23 @@ import { CourseService } from './Services/course.service';
 import { RouterModule, Routes } from '@angular/router';
 import { About } from './about/about';
 import { NotFound } from './not-found/not-found';
+import { TestimonyComponent } from './home/testimony/testimony.component';
+import { ServicesComponent } from './home/services/services.component';
+import { PopularComponent } from './home/popular/popular.component';
+import { ContactUsComponent } from './home/contact-us/contact-us.component';
+import { CurrencyPipe } from '@angular/common';
+import { BannerComponent } from './home/banner/banner.component';
+import { UserService } from './Services/user.service';
+import { ServicesService } from './Services/service.service';
 
 // Defining a route
 // 1) Use Routes Array to specify route in each object
 
 const routes: Routes = [
-  { path: '**', component: NotFound },
-  // {path:'',redirectTo:'home',pathMatch:'full'},
-  { path: '', component: Courses },
-  { path: 'home', component: Courses },
+  // { path: '**', component: NotFound },
+  {path:'',redirectTo:'home',pathMatch:'full'},
+  { path: '', component: Home },
+  { path: 'home', component: Home },
   { path: 'courses', component: Courses },
   { path: 'contact', component: Contact },
   { path: 'about', component: About },
@@ -34,9 +40,10 @@ const routes: Routes = [
 // ,use routeroutlet
 // we need to render b/w app-header and app-footer ,so use router-outlet in b/w of them
 @NgModule({
-  declarations: [App, Home, Header, Footer, Courses, Contact, About, NotFound],
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
-  providers: [provideBrowserGlobalErrorListeners(), CourseService],
+  declarations: [App, Home, Header, Footer, Courses, Contact, About, NotFound,TestimonyComponent,ServicesComponent,PopularComponent,ContactUsComponent,BannerComponent],
+
+  imports: [BrowserModule,CurrencyPipe, RouterModule.forRoot(routes)],
+  providers: [provideBrowserGlobalErrorListeners(), CourseService,ServicesService],
 
   bootstrap: [App],
 })
