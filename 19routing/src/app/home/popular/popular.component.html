@@ -30,7 +30,11 @@
         <!-- use absolute path("/") to move to courses -->
          <!-- if using without "/",route will be home/courses which is wrong we don't need relative path here -->
         <button class="go-to-course-button" routerLink="/courses">
-            Go to Courses Page 
+            Go to Courses Page using activeLinkdIRECTIVE
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        </button>
+             <button class="go-to-course-button" (click)="navigateToCourses()">
+            Go to Courses Page using CLICK
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
         </button>
     </div>
