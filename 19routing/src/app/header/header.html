@@ -42,7 +42,11 @@
         <a [routerLink]="'about'" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">ABOUT</a>
         <a routerLink="contact" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">CONTACT</a>
         <a routerLink="courses" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">COURSES</a>
+        <!-- <div>I.P -> Above path is also relative but it is not doing home/about,about/contact why?</div> -->
+        <!-- <div>Reason is relative path will append url to currently active route if route is defined to the same componnet(parent -child) not sibling</div> -->
+        <!-- <div>To understand above two lines,I moved head in home compoenent</div> -->
       </div>
+
       <div class="page-header-login-logout">
         <a href="#">LOGIN</a>
         <a href="#">LOGOUT</a>
@@ -51,3 +55,35 @@
 
   </div>
 </div>
+
+<div>
+  <h3>Absolute vs relative path</h3>
+  <div>When using directive routerLink if "/" is used it means absolute path,route is appended to root url,if "/" is not
+    used,it means relative path,route is appended to currently active route</div>
+</div>
+<h4 style="margin-top: 20px;">
+  if we use dot and slash("./"),it will become relative path,
+  <br>
+  Eg. localhost:4200/home/courses -> currently active route
+  <br>
+  <a routerLink="./course1"></a> -> it will navigate to localhost:4200/home/courses/course1
+
+</h4>
+
+<h4 style="margin-top: 20px;">
+  if we use("../"),it will move one level up,path will be appended to parent path
+  <br>
+  Eg. localhost:4200/home/courses -> currently active route
+  <br>
+  <a routerLink="../dashboard"></a> -> it will navigate to localhost:4200/home/dashboard
+
+</h4>
+
+<h4 style="margin-top: 20px;">
+  if we use("../../"),it will move two level up,path will be appended after removing last two paths of parent url
+  <br>
+  Eg. localhost:4200/books/author -> currently active route
+  <br>
+  <a routerLink="../../stephen"></a> -> it will navigate to localhost:4200s/tephen
+
+</h4>

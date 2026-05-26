@@ -27,7 +27,9 @@
         </div>
     </div>
     <div class="popular-course-bottom">
-        <button class="go-to-course-button">
+        <!-- use absolute path("/") to move to courses -->
+         <!-- if using without "/",route will be home/courses which is wrong we don't need relative path here -->
+        <button class="go-to-course-button" routerLink="/courses">
             Go to Courses Page 
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
         </button>
