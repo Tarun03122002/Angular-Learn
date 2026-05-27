@@ -31,8 +31,15 @@ export class CourseDetailComponent {
     console.log(this.activeRoute);
 
     // this.courseId = this.activeRoute.snapshot.params['id'] //params is deprecated use paramMap
-    this.courseId = +this.activeRoute.snapshot.paramMap.get('id') 
-    this.selectedCourse = this.courseService.courses.find(course => course.id === this.courseId)
+    // this.courseId = +this.activeRoute.snapshot.paramMap.get('id') 
+
+    // using paramMap observable to get latest value of route parameter ,whenever route param updates,it notifies and we listen using subscribe
+    this.activeRoute.paramMap.subscribe(val => {
+      this.courseId = +val.get('id')
+      this.selectedCourse = this.courseService.courses.find(course => course.id === this.courseId)
+
+    })
+    // this.selectedCourse = this.courseService.courses.find(course => course.id === this.courseId)
     console.log(this.courseId, this.selectedCourse);
 
   }

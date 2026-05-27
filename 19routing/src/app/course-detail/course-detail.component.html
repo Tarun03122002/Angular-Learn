@@ -22,8 +22,9 @@
                 <div class="course-fake-rewiews">
                     <h3>Mark Stefan</h3>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris
                         nisi ut aliquip ex ea commodo consequat.
                     </p>
                 </div>
@@ -31,19 +32,25 @@
                 <div class="course-fake-rewiews">
                     <h3>Josef Stalin</h3>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     </p>
                 </div>
 
                 <div class="course-fake-rewiews">
                     <h3>Ravi Kumar</h3>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                        incididunt ut labore et m veniam, quis nostrud exercitation ullamco laboris 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et m veniam, quis nostrud exercitation ullamco laboris
                         nisi ut aliquip ex ea commodo consequat.
                     </p>
                 </div>
+            </div>
+            <div style="display: flex; gap: 20px;">
+                <button [routerLink]="'/courses/course/'+(selectedCourse.id - 1) "
+                    style="padding: 10px;cursor: pointer;">Previous</button>
+                <button [routerLink]="'/courses/course/'+(selectedCourse.id + 1) "
+                    style="padding: 10px;cursor: pointer;">Next</button>
             </div>
         </div>
         <div class="course-action-items">
@@ -85,5 +92,6 @@
                 <button class="subscribe-course-button">Start subscription</button>
             </div>
         </div>
-    </div>    
+    </div>
+
 </div>
