@@ -24,7 +24,10 @@
                 </div>
                 <div class="course-action-buttons">
                     <button class="btn">BUY NOW</button>
-                    <button class="btn">DETAILS</button>
+                    <!-- <button class="btn" [routerLink]="'course/'+course?.id">DETAILS</button> //using relative path -->
+                    <button class="btn" [routerLink]="'/courses/course/'+course?.id">DETAILS</button> 
+                    <!-- //using absolute path -->
+
                 </div>
             </div>
         </div>

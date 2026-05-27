@@ -18,18 +18,23 @@ import { CurrencyPipe } from '@angular/common';
 import { BannerComponent } from './home/banner/banner.component';
 import { UserService } from './Services/user.service';
 import { ServicesService } from './Services/service.service';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
 
 // Defining a route
 // 1) Use Routes Array to specify route in each object
 
 const routes: Routes = [
   // { path: '**', component: NotFound },
-  {path:'',redirectTo:'home',pathMatch:'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '', component: Home },
   { path: 'home', component: Home },
   { path: 'courses', component: Courses },
   { path: 'contact', component: Contact },
   { path: 'about', component: About },
+
+  // Route parameter are the dynamic part of a route whose value can change.This provide way to pass additional information to that route
+  // use colon through which angular knows it is a dynamic route,variable which store additional information
+  {path:'courses/course/:id',component:CourseDetailComponent},
   // page not found route, ** wildcard route matches for all routes .Must be last element in routes array
   { path: '**', component: NotFound },
 ];
@@ -40,11 +45,11 @@ const routes: Routes = [
 // ,use routeroutlet
 // we need to render b/w app-header and app-footer ,so use router-outlet in b/w of them
 @NgModule({
-  declarations: [App, Home, Header, Footer, Courses, Contact, About, NotFound,TestimonyComponent,ServicesComponent,PopularComponent,ContactUsComponent,BannerComponent],
+  declarations: [App, Home, Header, Footer, Courses, Contact, About, NotFound, TestimonyComponent, ServicesComponent, PopularComponent,CourseDetailComponent, ContactUsComponent, BannerComponent],
 
-  imports: [BrowserModule,CurrencyPipe, RouterModule.forRoot(routes)],
-  providers: [provideBrowserGlobalErrorListeners(), CourseService,ServicesService],
+  imports: [BrowserModule, CurrencyPipe, RouterModule.forRoot(routes)],
+  providers: [provideBrowserGlobalErrorListeners(), CourseService, ServicesService],
 
   bootstrap: [App],
 })
-export class AppModule {}
+export class AppModule { }
