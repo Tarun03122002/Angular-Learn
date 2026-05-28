@@ -7,6 +7,7 @@ import { Contact } from "./contact/contact";
 import { Courses } from "./courses/courses";
 import { Home } from "./home/home";
 import { RouterModule, Routes } from "@angular/router";
+import { Login } from "./login/login";
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
             { path: "popular-courses", component: PopularComponent }
         ]
     },
+    {path:'login',component:Login},
     { path: '**', component: NotFound },
 ];
 @NgModule({
