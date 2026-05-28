@@ -32,9 +32,19 @@ const routes: Routes = [
   { path: 'contact', component: Contact },
   { path: 'about', component: About },
 
-  // Route parameter are the dynamic part of a route whose value can change.This provide way to pass additional information to that route
-  // use colon through which angular knows it is a dynamic route,variable which store additional information
-  {path:'courses/course/:id',component:CourseDetailComponent},
+  // // Route parameter are the dynamic part of a route whose value can change.This provide way to pass additional information to that route
+  // // use colon through which angular knows it is a dynamic route,variable which store additional information
+  // {path:'courses/course/:id',component:CourseDetailComponent},
+
+  // working with child routes
+  {
+    path: 'courses', children: [ //path: 'courses' tells us the parent is courses here and we are defined all the childs in children array
+      { path: 'course/:id', component: CourseDetailComponent },
+      { path: "popular-courses", component: PopularComponent }
+    ]
+  },
+
+
   // page not found route, ** wildcard route matches for all routes .Must be last element in routes array
   { path: '**', component: NotFound },
 ];
@@ -45,7 +55,7 @@ const routes: Routes = [
 // ,use routeroutlet
 // we need to render b/w app-header and app-footer ,so use router-outlet in b/w of them
 @NgModule({
-  declarations: [App, Home, Header, Footer, Courses, Contact, About, NotFound, TestimonyComponent, ServicesComponent, PopularComponent,CourseDetailComponent, ContactUsComponent, BannerComponent],
+  declarations: [App, Home, Header, Footer, Courses, Contact, About, NotFound, TestimonyComponent, ServicesComponent, PopularComponent, CourseDetailComponent, ContactUsComponent, BannerComponent],
 
   imports: [BrowserModule, CurrencyPipe, RouterModule.forRoot(routes)],
   providers: [provideBrowserGlobalErrorListeners(), CourseService, ServicesService],
