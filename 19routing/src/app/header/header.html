@@ -7,13 +7,13 @@
       <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
     </ul>
   </div>
-
+<h3>Fragment in a route is a link whhich jumps into a  section or a content of html page.Fragment will return after # sign ,which is also a unique id for section or html content</h3>
   <div class="page-header-secondary-nav">
-    <a href="#">SEARCH</a>
-    <a href="#">POPULAR</a>
-    <a href="#">TESTIMONY</a>
-    <a href="#">SERVICES</a>
-    <a href="#">CONTACT</a>
+    <a routerLink="home" fragment="search">SEARCH</a>
+    <a routerLink="home" fragment="courses">POPULAR</a>
+    <a routerLink="home" fragment="testimony">TESTIMONY</a>
+    <a routerLink="home" fragment="services">SERVICES</a>
+    <a routerLink="home" fragment="contact">CONTACT</a>
   </div>
 </div>
 <h2>routerLink directive is a directive that binds HTML element to a route.It catches click event on html element and it
