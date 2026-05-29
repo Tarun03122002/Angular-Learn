@@ -10,7 +10,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { Login } from "./login/login";
 import { Checkout } from "./checkout/checkout";
 import { AuthGuardService } from "./Services/auth-guard.service";
-import { canActivate } from "./auth.guard";
+import { canActivate, canActivateChild } from "./auth.guard";
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,16 +19,19 @@ const routes: Routes = [
     { path: 'courses', component: Courses },
     { path: 'contact', component: Contact },
     { path: 'about', component: About },
+    // canActivate if applied to parent route,it will work on parent as well as all its child For e.g on courses if applied it will work for courses and all its children route like course/popular-courses,checkout
+    // canActivateChild will work only for children not for parent
+    // Note : if we apply canActivate only for children routes,then behaviour will also be same,but we have write canActivate multiple times which is not good in larger application
     {
-        path: 'courses', children: [
+        path: 'courses',canActivateChild:[canActivateChild],  children: [
             { path: 'course/:id', component: CourseDetailComponent },
             { path: "popular-courses", component: PopularComponent },
             // {path:'checkout',component:Checkout,canActivate:[AuthGuardService]} //using angular 14
-            {path:'checkout',component:Checkout,canActivate:[canActivate]} //latest version
-            
+            { path: 'checkout', component: Checkout} //latest version
+
         ]
     },
-    {path:'login',component:Login},
+    { path: 'login', component: Login },
     { path: '**', component: NotFound },
 ];
 @NgModule({

@@ -6,7 +6,7 @@
 // 4) Use Service in guard property of route object
 
 import { inject, Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
 
@@ -14,7 +14,7 @@ import { AuthService } from "./auth.service";
 @Injectable({
     providedIn: 'root'
 })
-export class AuthGuardService implements CanActivate {
+export class AuthGuardService implements CanActivate ,CanActivateChild{
 
     authService: AuthService = inject(AuthService)
     router : Router = inject(Router)
@@ -26,5 +26,9 @@ export class AuthGuardService implements CanActivate {
             return false
 
         }
+    }
+
+    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+        return this.canActivate(childRoute,state)
     }
 }

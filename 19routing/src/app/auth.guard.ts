@@ -19,3 +19,7 @@ export const canActivate = () => {
 
     }
 }
+
+export const canActivateChild = () => {
+    return canActivate();
+}
