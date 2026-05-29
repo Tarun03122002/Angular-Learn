@@ -6,18 +6,21 @@
 // 4) Use Service in guard property of route object
 
 import { inject, Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanDeactivate, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
+import { Contact } from "../contact/contact";
 
-
+export interface Reset{
+    reset : () => boolean | Promise<boolean> | Observable<boolean>
+}
 @Injectable({
     providedIn: 'root'
 })
-export class AuthGuardService implements CanActivate ,CanActivateChild{
+export class AuthGuardService implements CanActivate, CanActivateChild, CanDeactivate<Reset> {
 
     authService: AuthService = inject(AuthService)
-    router : Router = inject(Router)
+    router: Router = inject(Router)
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
         if (this.authService.isAuthentiacted()) {
             return true
@@ -29,6 +32,12 @@ export class AuthGuardService implements CanActivate ,CanActivateChild{
     }
 
     canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-        return this.canActivate(childRoute,state)
+        return this.canActivate(childRoute, state)
+    }
+
+    // USE INTERFACE INSTEAD OF CONTACT,SO IT WILL WORK FOR ALL COMPONENTS
+    canDeactivate(component: Reset, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+       
+        return component.reset()
     }
 }

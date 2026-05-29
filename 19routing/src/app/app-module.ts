@@ -19,6 +19,7 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { RoutingModule } from './routing-module';
 import { Login } from './login/login';
 import { Checkout } from './checkout/checkout';
+import { FormsModule } from '@angular/forms';
 
 // Defining a route
 // 1) Use Routes Array to specify route in each object
@@ -59,7 +60,7 @@ import { Checkout } from './checkout/checkout';
   declarations: [App,Login, Home, Header, Footer, Courses, Contact, About, NotFound, TestimonyComponent, ServicesComponent, PopularComponent, CourseDetailComponent, ContactUsComponent, BannerComponent,Checkout],
   
 
-  imports: [BrowserModule,RoutingModule],
+  imports: [BrowserModule,RoutingModule,FormsModule],
   providers: [provideBrowserGlobalErrorListeners(), CourseService, ServicesService],
 
   bootstrap: [App],
