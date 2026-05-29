@@ -8,6 +8,9 @@ import { Courses } from "./courses/courses";
 import { Home } from "./home/home";
 import { RouterModule, Routes } from "@angular/router";
 import { Login } from "./login/login";
+import { Checkout } from "./checkout/checkout";
+import { AuthGuardService } from "./Services/auth-guard.service";
+import { canActivate } from "./auth.guard";
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,7 +22,10 @@ const routes: Routes = [
     {
         path: 'courses', children: [
             { path: 'course/:id', component: CourseDetailComponent },
-            { path: "popular-courses", component: PopularComponent }
+            { path: "popular-courses", component: PopularComponent },
+            // {path:'checkout',component:Checkout,canActivate:[AuthGuardService]} //using angular 14
+            {path:'checkout',component:Checkout,canActivate:[canActivate]} //latest version
+            
         ]
     },
     {path:'login',component:Login},

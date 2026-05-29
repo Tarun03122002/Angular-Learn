@@ -18,6 +18,7 @@ import { ServicesService } from './Services/service.service';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { RoutingModule } from './routing-module';
 import { Login } from './login/login';
+import { Checkout } from './checkout/checkout';
 
 // Defining a route
 // 1) Use Routes Array to specify route in each object
@@ -55,7 +56,8 @@ import { Login } from './login/login';
 // ,use routeroutlet
 // we need to render b/w app-header and app-footer ,so use router-outlet in b/w of them
 @NgModule({
-  declarations: [App,Login, Home, Header, Footer, Courses, Contact, About, NotFound, TestimonyComponent, ServicesComponent, PopularComponent, CourseDetailComponent, ContactUsComponent, BannerComponent],
+  declarations: [App,Login, Home, Header, Footer, Courses, Contact, About, NotFound, TestimonyComponent, ServicesComponent, PopularComponent, CourseDetailComponent, ContactUsComponent, BannerComponent,Checkout],
+  
 
   imports: [BrowserModule,RoutingModule],
   providers: [provideBrowserGlobalErrorListeners(), CourseService, ServicesService],
