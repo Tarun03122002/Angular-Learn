@@ -7,6 +7,12 @@
   <!-- <app-courses></app-courses> -->
   <!-- <app-login></app-login> -->
   <router-outlet></router-outlet>
+  @if(showLoader){
+  <div class="overlay">
+    <div class="loader"></div>
+  </div>
+  }
+
   <app-footer></app-footer>
 
 </div>

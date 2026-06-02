@@ -39,7 +39,8 @@ const routes: Routes = [
     { path: '**', component: NotFound },
 ];
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],//forRoot(routes) routes will avaliable throughout all the application
+    // enableTracing used to console route events
+    imports: [RouterModule.forRoot(routes,{enableTracing:true})],//forRoot(routes) routes will avaliable throughout all the application
     //  forChild(routes) -> routes will be avaiblble only for featured module
     exports: [RouterModule] //export RouterModule so that it can be accessed in app Module
 })
