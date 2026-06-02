@@ -23,9 +23,11 @@
                     <div class="course-rating"><b>RATINGS:</b> {{ course.rating }}</div>
                 </div>
                 <div class="course-action-buttons">
-                    <button class="btn" routerLink="/courses/checkout">BUY NOW</button>
+                    <!-- //passing dyamic data to a route -->
+                    <button class="btn" routerLink="/courses/checkout" [state]="course">BUY NOW</button>
+
                     <!-- <button class="btn" [routerLink]="'course/'+course?.id">DETAILS</button> //using relative path -->
-                    <button class="btn" [routerLink]="'/courses/course/'+course?.id">DETAILS</button> 
+                    <button class="btn" [routerLink]="'/courses/course/'+course?.id">DETAILS</button>
                     <!-- //using absolute path -->
 
                 </div>

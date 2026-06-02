@@ -31,8 +31,8 @@ const routes: Routes = [
             { path: 'course/:id', component: CourseDetailComponent },
             { path: "popular-courses", component: PopularComponent },
             // {path:'checkout',component:Checkout,canActivate:[AuthGuardService]} //using angular 14
-            { path: 'checkout', component: Checkout } //latest version
-
+            // { path: 'checkout', component: Checkout, data: { title: "Science", price: "12" } } //latest version in angular 15 //passing static data to a route
+            { path: 'checkout', component: Checkout, } 
         ]
     },
     { path: 'login', component: Login },
@@ -40,7 +40,7 @@ const routes: Routes = [
 ];
 @NgModule({
     // enableTracing used to console route events
-    imports: [RouterModule.forRoot(routes,{enableTracing:true})],//forRoot(routes) routes will avaliable throughout all the application
+    imports: [RouterModule.forRoot(routes, { enableTracing: true })],//forRoot(routes) routes will avaliable throughout all the application
     //  forChild(routes) -> routes will be avaiblble only for featured module
     exports: [RouterModule] //export RouterModule so that it can be accessed in app Module
 })
