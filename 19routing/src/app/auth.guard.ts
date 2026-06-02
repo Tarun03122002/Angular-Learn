@@ -4,6 +4,7 @@ import { inject } from "@angular/core"
 import { Router } from "@angular/router"
 import { AuthService } from "./Services/auth.service"
 import { Reset } from "./Services/auth-guard.service"
+import { CourseService } from "./Services/course.service"
 
 // 1 Create a function which will return boolean value and write business logic here
 // 2) Use function in route guard property of route object
@@ -29,4 +30,9 @@ export const canActivateChild = () => {
 // can Deactivate is used to prevent user to naviagte away from a current route.use case -> when user enter some data in a form,but by mistake it click on some external link
 export const canDeactivate = (comp : Reset) => {
     return comp.reset()
+}
+
+export const resolve = () => {
+    const course = inject(CourseService)
+    return course.getAllCourses()
 }

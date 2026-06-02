@@ -10,13 +10,15 @@ import { RouterModule, Routes } from "@angular/router";
 import { Login } from "./login/login";
 import { Checkout } from "./checkout/checkout";
 import { AuthGuardService } from "./Services/auth-guard.service";
-import { canActivate, canActivateChild, canDeactivate } from "./auth.guard";
+import { canActivate, canActivateChild, canDeactivate, resolve } from "./auth.guard";
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '', component: Home },
     { path: 'home', component: Home },
-    { path: 'courses', component: Courses },
+    // { path: 'courses', component: Courses, resolve : { courses : AuthGuardService} },//courses is the property name which will store the resolve method returned valued,we will access property from activated route,snapshot.data['propertyName']
+    { path: 'courses', component: Courses, resolve: { courses: resolve } },//courses is the property name which will store the resolve method returned valued,we will access property from activated route,snapshot.data['propertyName']
+
     // { path: 'contact', component: Contact ,canDeactivate : [AuthGuardService] },
     { path: 'contact', component: Contact, canDeactivate: [canDeactivate] },
 

@@ -6,10 +6,12 @@
 // 4) Use Service in guard property of route object
 
 import { inject, Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanDeactivate, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanDeactivate, GuardResult, MaybeAsync, RedirectCommand, Resolve, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
 import { Contact } from "../contact/contact";
+import { Course } from "../Models/course";
+import { CourseService } from "./course.service";
 
 export interface Reset{
     reset : () => boolean | Promise<boolean> | Observable<boolean>
@@ -17,10 +19,11 @@ export interface Reset{
 @Injectable({
     providedIn: 'root'
 })
-export class AuthGuardService implements CanActivate, CanActivateChild, CanDeactivate<Reset> {
+export class AuthGuardService implements CanActivate, CanActivateChild, CanDeactivate<Reset>,Resolve<Course[]> {
 
     authService: AuthService = inject(AuthService)
     router: Router = inject(Router)
+    course : CourseService = inject(CourseService)
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
         if (this.authService.isAuthentiacted()) {
             return true
@@ -40,4 +43,10 @@ export class AuthGuardService implements CanActivate, CanActivateChild, CanDeact
        
         return component.reset()
     }
+
+    // resolve guard used when we want to prefetch some data before navigating to a route
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Course[] | Observable<Course[]> | Promise<Course[]> {
+        return this.course.getAllCourses()
+    }
+
 }
