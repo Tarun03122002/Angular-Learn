@@ -12,6 +12,8 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class PercentPipe implements PipeTransform{
 
     transform(value: any,afterDecimalDigits : number=0) {
+        console.log("PERCENTAGE PIPE CALLED");
+        
         return (value * 100).toFixed(afterDecimalDigits);
     }
 }

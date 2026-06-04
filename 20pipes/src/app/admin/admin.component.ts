@@ -54,6 +54,7 @@ export class AdminComponent implements OnInit {
       this.Fee.nativeElement.value
     );
     this.isInserting = false;
+    // this.students =  this.studentService.students; // CHANGING RFERENCE of students 
   }
 
   OnEditClicked(stdId: number) {
@@ -73,5 +74,6 @@ export class AdminComponent implements OnInit {
     student.fee = this.editFee.nativeElement.value;
 
     this.isEditing = false;
+  
   }
 }
