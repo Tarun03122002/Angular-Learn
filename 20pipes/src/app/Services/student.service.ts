@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import { Student } from "../Models/Student";
 
 @Injectable({
-    providedIn:'root'
+    providedIn: 'root'
 })
-export class StudentService{
+export class StudentService {
     students: Student[] = [ //#1c345
         new Student(1, 'John Smith', 'Male', new Date('11-12-1997'), 'MBA', 520, 1899),
         new Student(2, 'Mark Vought', 'Male', new Date('10-06-1998'), 'B.Tech', 420, 2899),
@@ -16,7 +16,7 @@ export class StudentService{
 
     totalMarks: number = 600;
 
-    CreateStudent(name, gender, dob, course, marks, fee){
+    CreateStudent(name, gender, dob, course, marks, fee) {
         let id = this.students.length + 1;
         let student = new Student(id, name, gender, dob, course, marks, fee);
         this.students.push(student);
@@ -24,5 +24,12 @@ export class StudentService{
         // // CHANGING RFERENCE of students 
         // const studentCopy = [...this.students,student] //#56dsw2
         // this.students = studentCopy
+    }
+
+    filterOnGenderChange(filterByGender: string) {
+        if (!filterByGender || filterByGender == 'All' || this.students?.length == 0)
+            return this.students
+        else
+            return this.students.filter((student: Student) => student.gender.toLowerCase() === filterByGender.toLowerCase())
     }
 }

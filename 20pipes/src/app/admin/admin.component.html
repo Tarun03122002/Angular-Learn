@@ -6,7 +6,7 @@
             <h2>Student Management</h2>
         </div>
         <div class="admin-header-filter">
-            <select   name="gender" class="filter-select" [(ngModel)]="filterText">
+            <select   name="gender" class="filter-select" (ngModelChange)="onChange($event)" [(ngModel)]="filterText">
                 <option value="All">All</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -82,7 +82,8 @@
 
             <!--DISPLAY ALL STUDENTS FROM STUDENTS ARRAY-->
              <!-- //on mouse hover filter pipe is called infinite times ,it is performance intensive,so don't use impure pipe -->
-            <tr (mouseenter)="0" *ngFor="let std of students | filter : filterText">
+              <!-- Do not use pipe for filter and sorting instead use filtering in componet and if use in multiple component use service -->
+            <tr (mouseenter)="0" *ngFor="let std of students;">
                 <td>{{ std.id }}</td>
 
                 <td *ngIf="!isEditing || std.id !== stdIdToEdit">{{ std.name }}</td>

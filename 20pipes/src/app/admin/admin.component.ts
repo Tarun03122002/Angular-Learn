@@ -34,8 +34,14 @@ export class AdminComponent implements OnInit {
   @ViewChild('editFee') editFee: ElementRef;
   filterText : string = 'All'
   ngOnInit() {
-    this.students = this.studentService.students;
+    this.students = this.studentService.filterOnGenderChange(this.filterText);
     this.totalMarks = this.studentService.totalMarks;
+  }
+  onChange(event : any){
+    console.log(event);
+    
+    this.filterText = event
+    this.students = this.studentService.filterOnGenderChange(this.filterText);
   }
 
   OnInsertClicked() {
@@ -55,6 +61,7 @@ export class AdminComponent implements OnInit {
     );
     this.isInserting = false;
     // this.students =  this.studentService.students; // CHANGING RFERENCE of students 
+    this.onChange(this.filterText)
   }
 
   OnEditClicked(stdId: number) {
@@ -74,6 +81,7 @@ export class AdminComponent implements OnInit {
     student.fee = this.editFee.nativeElement.value;
 
     this.isEditing = false;
+    this.onChange(this.filterText)
   
   }
 }
