@@ -117,7 +117,7 @@
                     <input type="number" min="0" max="600" [value]="std.marks" #editMarks>
                 </td>
 
-                <td>{{ (std.marks / totalMarks) | percent : '2.2-5' }}</td>
+                <td>{{ std.marks / totalMarks | percentage : 2   }}</td>
 
                 <td *ngIf="!isEditing || std.id !== stdIdToEdit">{{ std.fee | currency : 'INR' : false : '3.1-2'}}</td>
                  <!-- //passing multiple argumenets separated by :,First argument is input value -->
