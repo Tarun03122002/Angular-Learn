@@ -33,9 +33,16 @@ export class AdminComponent implements OnInit {
   @ViewChild('editMarks') editMarks: ElementRef;
   @ViewChild('editFee') editFee: ElementRef;
   filterText : string = 'All'
+  totalStudents : any
   ngOnInit() {
     this.students = this.studentService.filterOnGenderChange(this.filterText);
     this.totalMarks = this.studentService.totalMarks;
+    this.totalStudents = new Promise((resolve,reject) => {
+      setTimeout(() => {
+        resolve(6)
+      },2000)
+    },)
+    
   }
   onChange(event : any){
     console.log(event);
