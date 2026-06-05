@@ -6,16 +6,13 @@ import { App } from './app';
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { ConfirmDeleteComponent } from './users/confirm-delete/confirm-delete.component';
-import { ViewContainer } from './ViewContainer.directive';
 
 @NgModule({
   declarations: [
     App,
     HomeComponent,
     UsersComponent,
-    ConfirmDeleteComponent,
-    ViewContainer
-    
+    ConfirmDeleteComponent
   ],
   imports: [
     BrowserModule,

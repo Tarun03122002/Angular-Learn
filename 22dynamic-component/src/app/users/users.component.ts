@@ -1,8 +1,7 @@
-import { Component, ComponentFactory, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactory, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { User } from '../Models/User';
 import { UserService } from '../Services/user.service';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
-import { ViewContainer } from '../ViewContainer.directive';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,7 +21,7 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   showDialog: boolean = false
   userToDelete!: User
-  @ViewChild(ViewContainer) viewContainer!: any;
+  @ViewChild('containerRef', { read: ViewContainerRef }) containerRef!: ViewContainerRef;
 
   subsc! : Subscription
 
@@ -50,13 +49,13 @@ export class UsersComponent implements OnInit {
     const componentFactoryConfirmDeleteComponent: ComponentFactory<ConfirmDeleteComponent> = this.componentFactoryResolver.resolveComponentFactory(ConfirmDeleteComponent)
 
     // Step2 -> Render instance into containerRef
-    console.log(this.viewContainer);
+    console.log(this.containerRef);
 
-    const componentRef = this.viewContainer.viewContainerRef.createComponent(componentFactoryConfirmDeleteComponent);
+    const componentRef = this.containerRef.createComponent(componentFactoryConfirmDeleteComponent);
     componentRef.instance.userToDelete = user;
     this.subsc = componentRef.instance.dialogActionClicked.subscribe((yesBtnClicked: boolean) => {
       this.subsc.unsubscribe();
-      this.viewContainer.viewContainerRef.clear();
+      this.containerRef.clear();
       if (yesBtnClicked) {
         const userToBeDeletedIndex = this.users.indexOf(this.userToDelete)
         this.users.splice(userToBeDeletedIndex, 1)
