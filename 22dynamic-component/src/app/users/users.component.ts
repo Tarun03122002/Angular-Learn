@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
     this.userToDelete = user
   }
 
-  dialogActionSubscribe(yesBtnClicked : Event){    
+  dialogActionSubscribe(yesBtnClicked : boolean){    
     this.showDialog = false
     if(yesBtnClicked){
       const userToBeDeletedIndex = this.users.indexOf(this.userToDelete)
