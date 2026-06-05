@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { User } from '../../Models/User';
 
 @Component({
   selector: 'confirm-delete',
@@ -9,7 +10,8 @@ import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@ang
 })
 export class ConfirmDeleteComponent implements OnInit {
 
-
+  @Input() userToDelete! : User
+  
   @Output() dialogActionClicked : EventEmitter<boolean> = new EventEmitter<boolean>()
 
   ngOnInit() {
