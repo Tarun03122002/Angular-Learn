@@ -1,28 +1,29 @@
 <section class="container">
   <header>Registration Form</header>
 
-  <!-- ngForm directive will store the referennec of js object for that form and I am assign reference of form in registrationForm template variable -->
+  <!-- 1) ngForm directive will store the referennec of js object for that form and I am assign reference of form in registrationForm template variable -->
+   <!-- 2) Creating form control ,need to use name property and ngModel directive(used to tell it is a form control) -->
   <form class="form"  #registrationForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="column">
       <div class="input-box">
-        <input type="text" placeholder="First Name" />
+        <input type="text" placeholder="First Name" name="fName" ngModel />
       </div> 
 
       <div class="input-box">
-        <input type="text" placeholder="Last Name" />
+        <input type="text" placeholder="Last Name" name="lName" ngModel/>
       </div>
     </div>    
 
     <div class="input-box">
-      <input type="text" placeholder="Email" />
+      <input type="text" placeholder="Email" name="email" ngModel/>
     </div>
 
     <div class="column">
       <div class="input-box">
-        <input type="number" placeholder="Phone Number" />
+        <input type="number" placeholder="Phone Number"  name="phoneNo" ngModel/>
       </div>
       <div class="input-box">
-        <input type="date" placeholder="Date of Birth" />
+        <input type="date" placeholder="Date of Birth" name="dob" ngModel/>
       </div>
     </div>
 
@@ -32,15 +33,15 @@
       <h3>Gender</h3>
       <div class="gender-option">
         <div class="gender">
-          <input type="radio" id="check-male" name="gender" checked />
+          <input type="radio" id="check-male"  name="gender"  />
           <label for="check-male">male</label>
         </div>
         <div class="gender">
-          <input type="radio" id="check-female" name="gender" />
+          <input type="radio" id="check-female"  name="gender" />
           <label for="check-female">Female</label>
         </div>
         <div class="gender">
-          <input type="radio" id="check-other" name="gender" />
+          <input type="radio" id="check-other"  name="gender" />
           <label for="check-other">prefer not to say</label>
         </div>
       </div>
@@ -48,11 +49,11 @@
 
     <div class="input-box address">
       <label>Address</label>
-      <input type="text" placeholder="Street address" />
-      <input type="text" placeholder="Street address line 2" />
+      <input type="text" placeholder="Street address"  name="streetAdd1" ngModel/>
+      <input type="text" placeholder="Street address line 2" name="streetAdd2" ngModel/>
       <div class="column">
         <div class="select-box">
-          <select name="country">
+          <select  name="country" ngModel>
             <option hidden>Country</option>
             <option>America</option>
             <option>Japan</option>
@@ -63,8 +64,8 @@
         <input type="text" placeholder="City" />
       </div>
       <div class="column">
-        <input type="text" placeholder="Region" />
-        <input type="number" placeholder="Postal code" />
+        <input type="text" placeholder="Region" name="region" ngModel />
+        <input type="number" placeholder="Postal code"  name="postalCode" ngModel/>
       </div>
     </div>
     <input type="submit" value="Submit" class="submit-btn"> 
