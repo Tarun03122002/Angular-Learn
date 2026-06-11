@@ -34,9 +34,9 @@
     <div class="gender-box">
       <h3>Gender</h3>
       <div class="gender-option">
-        @for(gender of genderList;track $index){
+        @for(gender of genderList;track $index;let id=$index){
         <div class="gender">
-          <input type="radio" [id]="gender.id"  name="gender" [value]="gender.value" ngModel />
+          <input type="radio" [id]="gender.id"  name="gender" [value]="gender.value" [ngModel]="defaultGender" />
           <label [for]="gender.id">{{gender.label}}</label>
         </div>
         }
@@ -51,7 +51,7 @@
       <input type="text" placeholder="Street address line 2" name="streetAdd2" ngModel/>
       <div class="column">
         <div class="select-box">
-          <select  name="country" ngModel>
+          <select  name="country" [ngModel]="selectedCountry">
             <option hidden>Country</option>
             <option>America</option>
             <option>Japan</option>

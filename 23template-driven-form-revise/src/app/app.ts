@@ -11,7 +11,8 @@ export class App {
   protected readonly title = signal('23template-driven-form-revise');
 
   genderList: Array<{ label: string, value: string, id: string }> = [{ label: 'Male', value: "M", id: "1" },{ label: 'Female', value: "F", id: "2" },{ label: 'Prefer Not to say', value: "N", id: "3" },]
-
+  defaultGender = this.genderList[0].value
+  selectedCountry = 'India'
   @ViewChild('registrationForm') form!: NgForm
   onSubmit() {
     // instead of receiving form object,we use View child
