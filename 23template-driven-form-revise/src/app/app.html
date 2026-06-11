@@ -2,30 +2,30 @@
   <header>Registration Form</header>
 
   <!-- 1) ngForm directive will store the referennec of js object for that form and I am assign reference of form in registrationForm template variable -->
-   <!-- 2) Creating form control ,need to use name property and ngModel directive(used to tell it is a form control) -->
-    <!-- 3) A form is considered as touched if any of its form control is touched.by default form control is marked as touched ,when we focus on one field and click outside that field -->
-     <!-- 4) a form is marked as dirty if any of its form control have same value changed from its previous value.If it's value does not change ,then that form or form control wiulll be pristine-->
-  <form class="form"  #registrationForm="ngForm" (ngSubmit)="onSubmit()">
+  <!-- 2) Creating form control ,need to use name property and ngModel directive(used to tell it is a form control) -->
+  <!-- 3) A form is considered as touched if any of its form control is touched.by default form control is marked as touched ,when we focus on one field and click outside that field -->
+  <!-- 4) a form is marked as dirty if any of its form control have same value changed from its previous value.If it's value does not change ,then that form or form control wiulll be pristine-->
+  <form class="form" #registrationForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="column">
       <div class="input-box">
-        <input type="text" placeholder="First Name" name="fName" ngModel />
-      </div> 
-
-      <div class="input-box">
-        <input type="text" placeholder="Last Name" name="lName" ngModel/>
+        <input type="text" placeholder="First Name" name="fName" ngModel required #firstName="ngModel"/>
+        <!-- firstName reference variable will contsin refer of form control of fName -->
       </div>
-    </div>    
+      <div class="input-box">
+        <input type="text" placeholder="Last Name" name="lName" ngModel required #lastName="ngModel"/>
+      </div>
+    </div>
 
     <div class="input-box">
-      <input type="text" placeholder="Email" name="email" ngModel/>
+      <input type="text" placeholder="Email" name="email" ngModel required email />
     </div>
 
     <div class="column">
       <div class="input-box">
-        <input type="number" placeholder="Phone Number"  name="phoneNo" ngModel/>
+        <input type="number" placeholder="Phone Number" name="phoneNo" ngModel />
       </div>
       <div class="input-box">
-        <input type="date" placeholder="Date of Birth" name="dob" ngModel/>
+        <input type="date" placeholder="Date of Birth" name="dob" ngModel />
       </div>
     </div>
 
@@ -36,22 +36,22 @@
       <div class="gender-option">
         @for(gender of genderList;track $index;let id=$index){
         <div class="gender">
-          <input type="radio" [id]="gender.id"  name="gender" [value]="gender.value" [ngModel]="defaultGender" />
+          <input type="radio" [id]="gender.id" name="gender" [value]="gender.value" [ngModel]="defaultGender" />
           <label [for]="gender.id">{{gender.label}}</label>
         </div>
         }
 
-    
+
       </div>
     </div>
 
     <div class="input-box address">
       <label>Address</label>
-      <input type="text" placeholder="Street address"  name="streetAdd1" ngModel/>
-      <input type="text" placeholder="Street address line 2" name="streetAdd2" ngModel/>
+      <input type="text" placeholder="Street address" name="streetAdd1" ngModel />
+      <input type="text" placeholder="Street address line 2" name="streetAdd2" ngModel />
       <div class="column">
         <div class="select-box">
-          <select  name="country" [ngModel]="selectedCountry">
+          <select name="country" [ngModel]="selectedCountry">
             <option hidden>Country</option>
             <option>America</option>
             <option>Japan</option>
@@ -63,10 +63,10 @@
       </div>
       <div class="column">
         <input type="text" placeholder="Region" name="region" ngModel />
-        <input type="number" placeholder="Postal code"  name="postalCode" ngModel/>
+        <input type="number" placeholder="Postal code" name="postalCode" ngModel />
       </div>
     </div>
-    <input type="submit" value="Submit" class="submit-btn"> 
+    <input type="submit" value="Submit" class="submit-btn" [disabled]="firstName.invalid || lastName.invalid || registrationForm.controls['email']?.invalid">
     <!-- by default a button present in form is of type=submit -->
   </form>
 </section>
