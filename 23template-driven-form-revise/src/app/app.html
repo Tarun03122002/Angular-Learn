@@ -32,18 +32,14 @@
     <div class="gender-box">
       <h3>Gender</h3>
       <div class="gender-option">
+        @for(gender of genderList;track $index){
         <div class="gender">
-          <input type="radio" id="check-male"  name="gender"  />
-          <label for="check-male">male</label>
+          <input type="radio" [id]="gender.id"  name="gender" [value]="gender.value" ngModel />
+          <label [for]="gender.id">{{gender.label}}</label>
         </div>
-        <div class="gender">
-          <input type="radio" id="check-female"  name="gender" />
-          <label for="check-female">Female</label>
-        </div>
-        <div class="gender">
-          <input type="radio" id="check-other"  name="gender" />
-          <label for="check-other">prefer not to say</label>
-        </div>
+        }
+
+    
       </div>
     </div>
 
