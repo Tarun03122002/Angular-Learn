@@ -8,16 +8,22 @@
   <form class="form" #registrationForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="column">
       <div class="input-box">
-        <input type="text" placeholder="First Name" name="fName" ngModel required #firstName="ngModel"/>
+        <input type="text" placeholder="First Name" name="fName" ngModel required #firstName="ngModel" />
         <!-- firstName reference variable will contsin refer of form control of fName -->
+        <small *ngIf="firstName.touched && firstName.invalid">*First Name is a required field</small>
       </div>
       <div class="input-box">
-        <input type="text" placeholder="Last Name" name="lName" ngModel required #lastName="ngModel"/>
+        <input type="text" placeholder="Last Name" name="lName" ngModel required #lastName="ngModel" />
+        <small *ngIf="lastName.touched && lastName.invalid">*Last Name is a required field</small>
       </div>
     </div>
 
     <div class="input-box">
       <input type="text" placeholder="Email" name="email" ngModel required email />
+      <!-- showing multiple custom error message for oe form control -->
+      <small *ngIf="registrationForm.controls['email']?.touched && !registrationForm.controls['email']?.value">*Email is a required field</small>
+      <small *ngIf="registrationForm.controls['email']?.touched && registrationForm.controls['email']?.value && registrationForm.controls['email']?.invalid ">*Enter valid email</small>
+
     </div>
 
     <div class="column">
@@ -66,7 +72,8 @@
         <input type="number" placeholder="Postal code" name="postalCode" ngModel />
       </div>
     </div>
-    <input type="submit" value="Submit" class="submit-btn" [disabled]="firstName.invalid || lastName.invalid || registrationForm.controls['email']?.invalid">
+    <input type="submit" value="Submit" class="submit-btn"
+      [disabled]="firstName.invalid || lastName.invalid || registrationForm.controls['email']?.invalid">
     <!-- by default a button present in form is of type=submit -->
   </form>
 </section>
