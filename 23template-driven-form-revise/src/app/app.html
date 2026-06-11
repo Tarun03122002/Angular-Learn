@@ -3,6 +3,8 @@
 
   <!-- 1) ngForm directive will store the referennec of js object for that form and I am assign reference of form in registrationForm template variable -->
    <!-- 2) Creating form control ,need to use name property and ngModel directive(used to tell it is a form control) -->
+    <!-- 3) A form is considered as touched if any of its form control is touched.by default form control is marked as touched ,when we focus on one field and click outside that field -->
+     <!-- 4) a form is marked as dirty if any of its form control have same value changed from its previous value.If it's value does not change ,then that form or form control wiulll be pristine-->
   <form class="form"  #registrationForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="column">
       <div class="input-box">
