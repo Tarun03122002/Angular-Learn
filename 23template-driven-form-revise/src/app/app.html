@@ -1,7 +1,8 @@
 <section class="container">
   <header>Registration Form</header>
 
-  <form class="form">
+  <!-- ngForm directive will store the referennec of js object for that form and I am assign reference of form in registrationForm template variable -->
+  <form class="form"  #registrationForm="ngForm" (ngSubmit)="onSubmit(registrationForm)">
     <div class="column">
       <div class="input-box">
         <input type="text" placeholder="First Name" />
@@ -66,6 +67,7 @@
         <input type="number" placeholder="Postal code" />
       </div>
     </div>
-    <input type="button" value="Submit" class="submit-btn"> 
+    <input type="submit" value="Submit" class="submit-btn"> 
+    <!-- by default a button present in form is of type=submit -->
   </form>
 </section>

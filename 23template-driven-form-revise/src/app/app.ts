@@ -9,7 +9,7 @@ import { Component, signal } from '@angular/core';
 export class App {
   protected readonly title = signal('23template-driven-form-revise');
 
-  onSubmit(val : HTMLFormElement){
+  onSubmit(val : any){
     console.log(val);
     
   }
