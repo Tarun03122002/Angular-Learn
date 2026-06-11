@@ -14,6 +14,7 @@ export class App {
   defaultGender = this.genderList[0].value
   selectedCountry = 'India'
   @ViewChild('registrationForm') form!: NgForm
+  fName : string = ''
   onSubmit() {
     // instead of receiving form object,we use View child
     console.log(this.form);

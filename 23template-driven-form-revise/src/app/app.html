@@ -8,9 +8,12 @@
   <form class="form" #registrationForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="column">
       <div class="input-box">
-        <input type="text" placeholder="First Name" name="fName" ngModel required #firstName="ngModel" />
+        <input type="text" placeholder="First Name" name="fName" [(ngModel)]="fName" required #firstName="ngModel" />
         <!-- firstName reference variable will contsin refer of form control of fName -->
-        <small *ngIf="firstName.touched && firstName.invalid">*First Name is a required field</small>
+        <!-- <small *ngIf="firstName.touched && firstName.invalid">*First Name is a required field</small> -->
+        <!-- using two way data binding other way -->
+        <!-- <p *ngIf=firstName.value>Your FIRST NAME entered: {{firstName.value}} </p> //normal way -->
+        <p *ngIf="fName">Your FIRST NAME entered: {{fName}} </p>
       </div>
       <div class="input-box">
         <input type="text" placeholder="Last Name" name="lName" ngModel required #lastName="ngModel" />
@@ -21,8 +24,11 @@
     <div class="input-box">
       <input type="text" placeholder="Email" name="email" ngModel required email />
       <!-- showing multiple custom error message for oe form control -->
-      <small *ngIf="registrationForm.controls['email']?.touched && !registrationForm.controls['email']?.value">*Email is a required field</small>
-      <small *ngIf="registrationForm.controls['email']?.touched && registrationForm.controls['email']?.value && registrationForm.controls['email']?.invalid ">*Enter valid email</small>
+      <small *ngIf="registrationForm.controls['email']?.touched && !registrationForm.controls['email']?.value">*Email is
+        a required field</small>
+      <small
+        *ngIf="registrationForm.controls['email']?.touched && registrationForm.controls['email']?.value && registrationForm.controls['email']?.invalid ">*Enter
+        valid email</small>
 
     </div>
 
