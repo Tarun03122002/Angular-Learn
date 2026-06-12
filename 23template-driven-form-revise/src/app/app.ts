@@ -1,5 +1,5 @@
 import { Component, signal, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgModelGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,7 @@ export class App {
   selectedCountry = 'India'
   @ViewChild('registrationForm') form!: NgForm
   fName : string = ''
+  @ViewChild('addr') addressFormGroup! : NgModelGroup
   onSubmit() {
     // instead of receiving form object,we use View child
     console.log(this.form);
@@ -24,7 +25,7 @@ export class App {
     console.log(this.form.value.lName, this.form.value.dob)
     // Accessing form control value using controls property
     // console.log(this.form.controls['streetAdd1'].value, this.form.controls['country'].value);
-    console.log(this.form.value.address.streetAdd1,this.form.value.address.country);
+    console.log(this.form.value.address.streetAdd1,this.form.getFormGroup(this.addressFormGroup).controls['country'].value);
     
 
 
