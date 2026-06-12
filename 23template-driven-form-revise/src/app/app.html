@@ -37,10 +37,20 @@
         <input type="number" placeholder="Phone Number" name="phoneNo" ngModel />
       </div>
       <div class="input-box">
-        <input type="date" placeholder="Date of Birth" name="dob" ngModel />
+        <input type="date" placeholder="Date of Birth" name="dob" ngModel required />
       </div>
     </div>
+    <div class="column">
+      <div class="input-box">
+        <input type="text" placeholder="User Name" name="userName" ngModel />
+      </div>
 
+    </div>
+    <div class="column">
+      <div class="input-box">
+        <input [disabled]="firstName.invalid || lastName.invalid || registrationForm.controls['dob']?.invalid" type="button" value="Create UserName" class="submit-btn" (click)="generateUserName()" />
+      </div>
+    </div>
 
 
     <div class="gender-box">
@@ -58,13 +68,14 @@
     </div>
 
     <!-- Grouping of form control -> Usecase if we want to show some error on group  of form control instead of individual form control -->
-    <div class="input-box address" ngModelGroup="address" #addr="ngModelGroup"> <!--ngModelGroup will contain referenece of formgroup address and i am storing in add template reference varaiable-->
+    <div class="input-box address" ngModelGroup="address" #addr="ngModelGroup">
+      <!--ngModelGroup will contain referenece of formgroup address and i am storing in add template reference varaiable-->
       <label>Address</label>
       <input type="text" placeholder="Street address" name="streetAdd1" ngModel required />
       <input type="text" placeholder="Street address line 2" name="streetAdd2" ngModel />
       <div class="column">
         <div class="select-box">
-          <select name="country" [ngModel]="selectedCountry" required> 
+          <select name="country" [ngModel]="selectedCountry" required>
             <option hidden>Country</option>
             <option>America</option>
             <option>Japan</option>
@@ -72,7 +83,7 @@
             <option>Nepal</option>
           </select>
         </div>
-        <input type="text" placeholder="City" />
+        <input type="text" placeholder="City"  name="city" ngModel />
       </div>
       <div class="column">
         <input type="text" placeholder="Region" name="region" ngModel />
