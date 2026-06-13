@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -22,9 +22,9 @@ export class App {
 
   createForm() {
     this.registrationForm = new FormGroup({
-      fName: new FormControl(''),
-      lName: new FormControl(''),
-      email: new FormControl(''),
+      fName: new FormControl('',Validators.required),
+      lName: new FormControl('',Validators.required),
+      email: new FormControl('',[Validators.required,Validators.email]),
       userName: new FormControl(''),
       dob: new FormControl(''),
       gender: new FormControl('male'),
