@@ -48,7 +48,8 @@
     </div>
     <div class="column">
       <div class="input-box">
-        <input [disabled]="firstName.invalid || lastName.invalid || registrationForm.controls['dob']?.invalid" type="button" value="Create UserName" class="submit-btn" (click)="generateUserName()" />
+        <input [disabled]="firstName.invalid || lastName.invalid || registrationForm.controls['dob']?.invalid"
+          type="button" value="Create UserName" class="submit-btn" (click)="generateUserName()" />
       </div>
     </div>
 
@@ -83,13 +84,19 @@
             <option>Nepal</option>
           </select>
         </div>
-        <input type="text" placeholder="City"  name="city" ngModel />
+        <input type="text" placeholder="City" name="city" ngModel />
       </div>
       <div class="column">
         <input type="text" placeholder="Region" name="region" ngModel />
         <input type="number" placeholder="Postal code" name="postalCode" ngModel />
       </div>
       <small *ngIf="addr.invalid && addr.touched">*Some addrress fields are required</small>
+    </div>
+
+
+    <div class="column">
+        <input type="checkbox" name="termsAndCondition" [ngModel]="tNC" /> <!--//SETTING default of checkbox to false by using ngModel property binding by default it is empty string-->
+        <label>Allow Terms and Conditions</label>
     </div>
     <input type="submit" value="Submit" class="submit-btn"
       [disabled]="firstName.invalid || lastName.invalid || registrationForm.controls['email']?.invalid">

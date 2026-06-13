@@ -16,6 +16,7 @@ export class App {
   @ViewChild('registrationForm') form!: NgForm
   fName: string = ''
   @ViewChild('addr') addressFormGroup!: NgModelGroup
+  tNC : boolean = false
   onSubmit() {
     // instead of receiving form object,we use View child
     console.log(this.form);
@@ -29,14 +30,14 @@ export class App {
 
 
     // Reset form on submit
-    this.form.reset({
-      gender:"M",
-      address:{
-        country:"India"
-      }
-    })
+    // this.form.reset({
+    //   gender:"M",
+    //   address:{
+    //     country:"India"
+    //   }
+    // })
     //reset method reset value of form control to value provided otherwise if not provided set form control to null
-    console.log("After resetting",this.form);
+    // console.log("After resetting",this.form);
 
 
   }
