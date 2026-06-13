@@ -28,6 +28,15 @@ export class App {
     console.log(this.form.value.address.streetAdd1, this.form.getFormGroup(this.addressFormGroup).controls['country'].value);
 
 
+    // Reset form on submit
+    this.form.reset({
+      gender:"M",
+      address:{
+        country:"India"
+      }
+    })
+    //reset method reset value of form control to value provided otherwise if not provided set form control to null
+    console.log("After resetting",this.form);
 
 
   }
@@ -74,5 +83,7 @@ export class App {
       },
       gender:'M'
     })
+
+    
   }
 }
