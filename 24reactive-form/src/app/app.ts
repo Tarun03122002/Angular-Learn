@@ -41,6 +41,10 @@ export class App {
       skills: new FormArray([
         new FormControl('',Validators.required),
 
+      ]),
+      // adding array of form group
+      experience : new FormArray([
+        
       ])
 
     })
@@ -50,12 +54,30 @@ export class App {
     return this.registrationForm.get('skills') as FormArray
   }
 
+  get experience() : FormArray{
+    return this.registrationForm.get('experience') as FormArray
+  }
+
   addSkill() {
     this.skills.push(new FormControl('',Validators.required))
   }
 
   deleteSkill(index: number) {
     this.skills.removeAt(index)
+  }
+
+  deleteExperience(index : number){
+    this.experience.removeAt(index)
+  }
+
+  addExperience(){
+    this.experience.push(new FormGroup({
+          company : new FormControl(''),
+          position: new FormControl(''),
+          experienceYr : new FormControl(''),
+          startDate : new FormControl(''),
+          endDate : new FormControl('')
+        }))
   }
   onSubmit() {
     console.log("form", this.registrationForm);

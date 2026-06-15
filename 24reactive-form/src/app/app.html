@@ -100,29 +100,14 @@
       }
     </div>
     <button type="button" class="btn-add-delete" (click)="addSkill()">Add Skill</button>
-
-    <input type="submit" value="Submit" class="submit-btn" [disabled]="registrationForm.invalid">
-  </form>
-</section>
-
-<!--HTML for Skills Form Array -->
-<!-- <div class="input-box skills" formArrayName="skills">
-      <h4>Add Skills</h4>
-      <div class="column">
-        <input type="text" placeholder="Add Skill...">
-        <button type="button" class="btn-add-delete">Delete</button>
-      </div> 
-    </div>
-    <button type="button" class="btn-add-delete">Add Skills</button> -->
-
-<!--HTML for Experience Form Array -->
-<!-- <div class="input-box">
-      <div class="experience">
-        <label>Experience</label>
-        <input type="text" placeholder="Company Name" />
+    <div class="input-box" formArrayName="experience">
+      @for(control of experience['controls'];track control;let i = $index){
+      <div class="experience" [formGroupName]="i">
+        <label>Experience {{i+1}}</label>
+        <input type="text" placeholder="Company Name" formControlName="company"/>
         <div class="column">
           <div class="select-box">
-            <select>
+            <select formControlName="position">
               <option hidden>Position</option>
               <option>Junior Developer</option>
               <option>Software Developer</option>
@@ -130,17 +115,24 @@
               <option>Team Lead</option>
             </select>
           </div>
-          <input type="number" placeholder="Experience" />
+          <input type="number" placeholder="Experience" formControlName="experienceYr"/>
         </div>
         <div class="column">
-          <input type="date" placeholder="Start Date" />
-          <input type="date" placeholder="End Date" />
+          <input type="date" placeholder="Start Date" formControlName="startDate"/>
+          <input type="date" placeholder="End Date" formControlName="endDate"/>
         </div>
-        <button type="button" class="btn-add-delete">Delete Experience</button>
+        <button type="button" class="btn-add-delete"  (click)="deleteExperience(i)">Delete Experience</button>
       </div>
-          <button type="button" class="btn-add-delete">Add Experience</button>
+      }
+      <button type="button" class="btn-add-delete" (click)="addExperience()">Add Experience</button>
 
-    </div> -->
+    </div>
+    <input type="submit" value="Submit" class="submit-btn" [disabled]="registrationForm.invalid">
+  </form>
+</section>
+
+
+
 <!--uncomment below HTML for displaying form data-->
 
 <!-- <section class="user-detail-container">
