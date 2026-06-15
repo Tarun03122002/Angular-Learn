@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { Form, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { required } from '@angular/forms/signals';
+import { CustomValidator, noSpaceValidator } from './CustomValidator/noSpaceValidator.validator';
 
 @Component({
   selector: 'app-root',
@@ -23,8 +24,8 @@ export class App {
 
   createForm() {
     this.registrationForm = new FormGroup({
-      fName: new FormControl('', Validators.required),
-      lName: new FormControl('', Validators.required),
+      fName: new FormControl('', [Validators.required,CustomValidator.noSpaceValidator]),
+      lName: new FormControl('', [Validators.required,noSpaceValidator]),
       email: new FormControl('', [Validators.required, Validators.email]),
       userName: new FormControl(''),
       dob: new FormControl(''),
