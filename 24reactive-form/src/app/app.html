@@ -89,7 +89,14 @@
       </div>
     </div>
 
+    <div class="input-box skills" formArrayName="skills">
+      <h4>Skills</h4>
+      @for(control of skills['controls']; track control;let i=$index){
+      <input type="text" placeholder="Add Skill..." [formControlName]="i"/>
 
+      }
+    </div>
+    <button type="button" class="btn-add-delete">Add Skill</button>
 
     <input type="submit" value="Submit" class="submit-btn" [disabled]="registrationForm.invalid">
   </form>

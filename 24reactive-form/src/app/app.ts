@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { required } from '@angular/forms/signals';
 
 @Component({
@@ -31,16 +31,26 @@ export class App {
       gender: new FormControl('male'),
       // Grouping of form control ,use  formGroupName directive at parent wrapper of all these controls
       address: new FormGroup({
-        streetAdd: new FormControl('',Validators.required),
-        country: new FormControl('India',Validators.required),
+        streetAdd: new FormControl('', Validators.required),
+        country: new FormControl('India', Validators.required),
         city: new FormControl(''),
         region: new FormControl(''),
-        postal: new FormControl('',Validators.required)
-      })
+        postal: new FormControl('', Validators.required)
+      }),
+      // creating formArray control
+      skills: new FormArray([
+        new FormControl(''),
+        new FormControl(''),
+        new FormControl('')
+
+      ])
 
     })
   }
 
+  get skills(): FormArray {
+    return this.registrationForm.get('skills') as FormArray
+  }
   onSubmit() {
     console.log("form", this.registrationForm);
 
