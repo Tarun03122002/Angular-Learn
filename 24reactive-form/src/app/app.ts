@@ -39,9 +39,7 @@ export class App {
       }),
       // creating formArray control
       skills: new FormArray([
-        new FormControl(''),
-        new FormControl(''),
-        new FormControl('')
+        new FormControl('',Validators.required),
 
       ])
 
@@ -50,6 +48,14 @@ export class App {
 
   get skills(): FormArray {
     return this.registrationForm.get('skills') as FormArray
+  }
+
+  addSkill() {
+    this.skills.push(new FormControl('',Validators.required))
+  }
+
+  deleteSkill(index: number) {
+    this.skills.removeAt(index)
   }
   onSubmit() {
     console.log("form", this.registrationForm);

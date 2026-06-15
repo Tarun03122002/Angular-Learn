@@ -92,11 +92,14 @@
     <div class="input-box skills" formArrayName="skills">
       <h4>Skills</h4>
       @for(control of skills['controls']; track control;let i=$index){
-      <input type="text" placeholder="Add Skill..." [formControlName]="i"/>
+      <div class="input-box" style="display: flex; justify-content: space-between;">
+        <input style="width: 60%;" type="text" placeholder="Add Skill..." [formControlName]="i" />
+        <button type="button" class="btn-add-delete" (click)="deleteSkill(i)">Delete Skill</button>
+      </div>
 
       }
     </div>
-    <button type="button" class="btn-add-delete">Add Skill</button>
+    <button type="button" class="btn-add-delete" (click)="addSkill()">Add Skill</button>
 
     <input type="submit" value="Submit" class="submit-btn" [disabled]="registrationForm.invalid">
   </form>
