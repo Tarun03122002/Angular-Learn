@@ -17,17 +17,31 @@ export class App {
   // After that map FormGroup instance with formGroup directive in view template
   // Also map each input with formControlName directive
   registrationForm!: FormGroup
+  currentStatus!: string;
 
   ngOnInit() {
     this.createForm()
+    this.registrationForm.controls['fName'].valueChanges.subscribe(data => {
+      console.log("First name form control value changes listen", data);
+
+    })
+    this.registrationForm.valueChanges.subscribe(data => {
+      console.log("any form control value changes listen", data);
+    })
+    this.registrationForm.controls['userName'].statusChanges.subscribe(data => {
+      this.currentStatus = data
+    })
+    this.registrationForm.statusChanges.subscribe(data => {
+      this.currentStatus = data
+    })
   }
 
   createForm() {
     this.registrationForm = new FormGroup({
-      fName: new FormControl('', [Validators.required,CustomValidator.noSpaceValidator]),
-      lName: new FormControl('', [Validators.required,noSpaceValidator]),
+      fName: new FormControl('', [Validators.required, CustomValidator.noSpaceValidator]),
+      lName: new FormControl('', [Validators.required, noSpaceValidator]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      userName: new FormControl('',Validators.required,validateUserName), //3rd argument will be async validator
+      userName: new FormControl('', Validators.required, validateUserName), //3rd argument will be async validator
       dob: new FormControl(''),
       gender: new FormControl('male'),
       // Grouping of form control ,use  formGroupName directive at parent wrapper of all these controls
@@ -40,12 +54,12 @@ export class App {
       }),
       // creating formArray control
       skills: new FormArray([
-        new FormControl('',Validators.required),
+        new FormControl('', Validators.required),
 
       ]),
       // adding array of form group
-      experience : new FormArray([
-        
+      experience: new FormArray([
+
       ])
 
     })
@@ -55,30 +69,30 @@ export class App {
     return this.registrationForm.get('skills') as FormArray
   }
 
-  get experience() : FormArray{
+  get experience(): FormArray {
     return this.registrationForm.get('experience') as FormArray
   }
 
   addSkill() {
-    this.skills.push(new FormControl('',Validators.required))
+    this.skills.push(new FormControl('', Validators.required))
   }
 
   deleteSkill(index: number) {
     this.skills.removeAt(index)
   }
 
-  deleteExperience(index : number){
+  deleteExperience(index: number) {
     this.experience.removeAt(index)
   }
 
-  addExperience(){
+  addExperience() {
     this.experience.push(new FormGroup({
-          company : new FormControl(''),
-          position: new FormControl(''),
-          experienceYr : new FormControl(''),
-          startDate : new FormControl(''),
-          endDate : new FormControl('')
-        }))
+      company: new FormControl(''),
+      position: new FormControl(''),
+      experienceYr: new FormControl(''),
+      startDate: new FormControl(''),
+      endDate: new FormControl('')
+    }))
   }
   onSubmit() {
     console.log("form", this.registrationForm);
