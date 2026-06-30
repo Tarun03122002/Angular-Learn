@@ -22,11 +22,11 @@ export class App {
   ngOnInit() {
     this.createForm()
     this.registrationForm.controls['fName'].valueChanges.subscribe(data => {
-      console.log("First name form control value changes listen", data);
+      // console.log("First name form control value changes listen", data);
 
     })
     this.registrationForm.valueChanges.subscribe(data => {
-      console.log("any form control value changes listen", data);
+      // console.log("any form control value changes listen", data);
     })
     this.registrationForm.controls['userName'].statusChanges.subscribe(data => {
       this.currentStatus = data
@@ -97,5 +97,13 @@ export class App {
   onSubmit() {
     console.log("form", this.registrationForm);
 
+    // reset form on submi
+    this.registrationForm.reset() //reset to null state all form controls
+    this.registrationForm.reset({
+      gender:'male',
+      address :{
+        country :'India'
+      }
+    })
   }
 }
