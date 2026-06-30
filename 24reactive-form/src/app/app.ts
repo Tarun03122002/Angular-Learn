@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { Form, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { required } from '@angular/forms/signals';
-import { CustomValidator, noSpaceValidator } from './CustomValidator/noSpaceValidator.validator';
+import { CustomValidator, noSpaceValidator, validateUserName } from './CustomValidator/noSpaceValidator.validator';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +27,7 @@ export class App {
       fName: new FormControl('', [Validators.required,CustomValidator.noSpaceValidator]),
       lName: new FormControl('', [Validators.required,noSpaceValidator]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      userName: new FormControl(''),
+      userName: new FormControl('',Validators.required,validateUserName), //3rd argument will be async validator
       dob: new FormControl(''),
       gender: new FormControl('male'),
       // Grouping of form control ,use  formGroupName directive at parent wrapper of all these controls
