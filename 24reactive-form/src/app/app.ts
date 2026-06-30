@@ -26,7 +26,7 @@ export class App {
 
     })
     this.registrationForm.valueChanges.subscribe(data => {
-      // console.log("any form control value changes listen", data);
+      console.log("any form control value changes listen", data);
     })
     this.registrationForm.controls['userName'].statusChanges.subscribe(data => {
       this.currentStatus = data
@@ -100,10 +100,56 @@ export class App {
     // reset form on submi
     this.registrationForm.reset() //reset to null state all form controls
     this.registrationForm.reset({
-      gender:'male',
-      address :{
-        country :'India'
+      gender: 'male',
+      address: {
+        country: 'India'
       }
     })
+  }
+
+  generateUserName() {
+    let username = ''
+    if (this.controlValue('fName')?.length >= 3)
+      username += this.controlValue('fName').slice(0, 3)
+    else
+      username += this.controlValue('fName')
+
+    if (this.controlValue('lName')?.length >= 3)
+      username += this.controlValue('lName').slice(0, 3)
+    else
+      username += this.controlValue('lName')
+
+    let dobResolve = new Date(this.controlValue('dob')).getFullYear()
+    username += dobResolve
+    username = username.toLowerCase()
+
+    // setValue ,pass same structure
+    // this.registrationForm.setValue({
+    //   "fName": "",
+    //   "lName": "",
+    //   "email": "",
+    //   "userName": username,
+    //   "dob": "",
+    //   "gender": "male",
+    //   "address": {
+    //     "streetAdd": "",
+    //     "country": "India",
+    //     "city": "",
+    //     "region": "",
+    //     "postal": ""
+    //   },
+    //   "skills": [
+    //     ""
+    //   ],
+    //   "experience": []
+    // })
+
+    this.registrationForm.patchValue({
+      userName : username
+    })
+  }
+
+  controlValue(controlName: string) {
+    return this.registrationForm.controls[controlName].value
   }
 }
