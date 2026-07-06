@@ -23,4 +23,5 @@ export class CreateTaskComponent {
     console.log(form.value);
     this.taskFormData.emit(form.value)
   }
+
 }

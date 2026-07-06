@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateTaskComponent } from './dashboard/create-task/create-task.component';
 import { TaskDetailsComponent } from './dashboard/task-details/task-details.component';
 import { FormsModule } from '@angular/forms';
+import {  provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideHttpClient(withInterceptorsFromDi())
   ],
   bootstrap: [App]
 })
