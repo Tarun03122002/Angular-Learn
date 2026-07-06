@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { Task } from '../Models/TaskModel';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,5 +16,9 @@ export class DashboardComponent{
 
   CloseCreateTaskForm(){
     this.showCreateTaskForm = false;
+  }
+  receivingTaskFormData(event : Task){
+    console.log("Form data in dashboard component",event);
+    
   }
 }
