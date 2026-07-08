@@ -19,13 +19,14 @@
     <hr>
 
     <div class="dashboard-item-container">
-            <div class="task-item">
+          @for(task of allTasks;track task?.id; ){
+              <div class="task-item">
                 <div class="task-title">
-                    <h3>Task Title</h3>
+                    <h3>{{task?.title | titlecase}}</h3>
                 </div>
-                <p><b>Assigned to: </b>John Smith</p>
-                <p><b>Priority: </b>High</p>
-                <p><b>Status: </b>In Progress</p>
+                <p><b>Assigned to: </b>{{task?.assignedTo | titlecase}}</p>
+                <p><b>Priority: </b>{{task?.priority | titlecase}}</p>
+                <p><b>Status: </b>{{task?.status | titlecase}}</p>
                 <div class="task-action-icons">
                     <button class="task-action-btn" title="Detail">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -38,6 +39,7 @@
                     </button>            
                 </div>
             </div>
+          }
     </div>
 </div>
 

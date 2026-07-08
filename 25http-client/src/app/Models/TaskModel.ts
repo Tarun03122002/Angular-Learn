@@ -6,4 +6,5 @@ export class Task{
     createdAt!: string;
     priority!: string;
     status!: string;
+    id? : string;
 }

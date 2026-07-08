@@ -1,0 +1,5 @@
+{
+    "editor.inlineSuggest.edits.allowCodeShifting": "never",
+    "notebook.experimental.generate": false,
+    "editor.inlineSuggest.enabled": false
+}
