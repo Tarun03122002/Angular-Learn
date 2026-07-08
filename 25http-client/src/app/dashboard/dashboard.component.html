@@ -20,7 +20,7 @@
 
     <div class="dashboard-item-container">
           @for(task of allTasks;track task?.id; ){
-              <div class="task-item">
+              <div class="task-item" [class]=`task-${task?.status}`>
                 <div class="task-title">
                     <h3>{{task?.title | titlecase}}</h3>
                 </div>

@@ -31,7 +31,7 @@ export class DashboardComponent {
     console.log("Form data in dashboard component", data);
     this.http.post<{ key: string }>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json', data).subscribe(data => {
       console.log(data);
-
+      this.fetchAllTasks()
     })
   }
 
@@ -44,6 +44,7 @@ export class DashboardComponent {
   }
 
   formatData(data : {[key: string]: Task }) {
+    this.allTasks = []
     const listOfIds = Object.keys(data ?? {})
     const listOfTasks = Object.values(data ?? {})
     listOfTasks.map((task, index) => this.allTasks.push({ ...task, id: listOfIds[index] }))
