@@ -19,9 +19,9 @@ export class DashboardComponent{
   CloseCreateTaskForm(){
     this.showCreateTaskForm = false;
   }
-  receivingTaskFormData(event : Task){
-    console.log("Form data in dashboard component",event);
-    this.http.post('https;//firestore.googleapis.com/v1/projects/httpclient-4723f/databases/tasks.json',event).subscribe(data => {
+  receivingTaskFormData(data : Task){
+    console.log("Form data in dashboard component",data);
+    this.http.post<{key : string}>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json',data).subscribe(data => {
       console.log(data);
       
     })
