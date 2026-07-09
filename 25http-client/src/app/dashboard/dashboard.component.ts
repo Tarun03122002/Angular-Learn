@@ -14,7 +14,7 @@ export class DashboardComponent {
 
   allTasks: Task[] = []
 
-  constructor(private cdr:ChangeDetectorRef){}
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.fetchAllTasks();
@@ -39,17 +39,32 @@ export class DashboardComponent {
     this.http.get<{ [key: string]: Task }>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json').subscribe(data => {
       console.log(data);
       this.formatData(data)
+      this.cdr.detectChanges()
 
     })
   }
 
-  formatData(data : {[key: string]: Task }) {
+  formatData(data: { [key: string]: Task }) {
     this.allTasks = []
     const listOfIds = Object.keys(data ?? {})
     const listOfTasks = Object.values(data ?? {})
     listOfTasks.map((task, index) => this.allTasks.push({ ...task, id: listOfIds[index] }))
     console.log(this.allTasks);
-   this.cdr.detectChanges()
 
+  }
+
+  onDeleteTask(id: string | undefined) {
+    this.http.delete('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks/' + id + '.json').subscribe((res) => {
+      console.log(res);
+      this.fetchAllTasks()
+
+
+    })
+  }
+  clearAllTasks() {
+    this.http.delete('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json').subscribe((res) => {
+      console.log(res);
+      this.fetchAllTasks()
+    })
   }
 }
