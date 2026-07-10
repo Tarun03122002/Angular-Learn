@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { Task } from '../Models/TaskModel';
-import { HttpClient } from '@angular/common/http';
+import { TaskService } from '../Services/task.service';
+import { formatData } from '../helpers/taskFormatData';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,12 +10,11 @@ import { HttpClient } from '@angular/common/http';
   standalone: false
 })
 export class DashboardComponent {
-  showCreateTaskForm: boolean = false;
-  http: HttpClient = inject(HttpClient)
+  showCreateTaskForm = false;
+  taskService = inject(TaskService);
+  allTasks: Task[] = [];
 
-  allTasks: Task[] = []
-
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.fetchAllTasks();
@@ -27,44 +27,57 @@ export class DashboardComponent {
   CloseCreateTaskForm() {
     this.showCreateTaskForm = false;
   }
+
   receivingTaskFormData(data: Task) {
-    console.log("Form data in dashboard component", data);
-    this.http.post<{ key: string }>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json', data).subscribe(data => {
-      console.log(data);
-      this.fetchAllTasks()
-    })
-  }
-
-  fetchAllTasks() {
-    this.http.get<{ [key: string]: Task }>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json').subscribe(data => {
-      console.log(data);
-      this.formatData(data)
-      this.cdr.detectChanges()
-
-    })
-  }
-
-  formatData(data: { [key: string]: Task }) {
-    this.allTasks = []
-    const listOfIds = Object.keys(data ?? {})
-    const listOfTasks = Object.values(data ?? {})
-    listOfTasks.map((task, index) => this.allTasks.push({ ...task, id: listOfIds[index] }))
-    console.log(this.allTasks);
-
+    // this.runAfterMutation(() =>
+      this.taskService.createTask(data,(res : any) => {
+        console.log(res);
+         this.fetchAllTasks()
+         this.CloseCreateTaskForm()
+        
+      })
+    //   this.CloseCreateTaskForm();
+    // });
   }
 
   onDeleteTask(id: string | undefined) {
-    this.http.delete('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks/' + id + '.json').subscribe((res) => {
-      console.log(res);
-      this.fetchAllTasks()
-
-
-    })
+    this.runAfterMutation(() => this.taskService.deleteTask(id));
   }
+
   clearAllTasks() {
-    this.http.delete('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json').subscribe((res) => {
-      console.log(res);
-      this.fetchAllTasks()
-    })
+    this.runAfterMutation(() => this.taskService.clearAllTasks());
+  }
+
+  private runAfterMutation(operation: () => any, onSuccess?: () => void) {
+    const result = operation();
+
+    if (result?.subscribe) {
+      result.subscribe({
+        next: () => {
+          this.fetchAllTasks();
+          onSuccess?.();
+        },
+        error: (err: unknown) => {
+          console.error('Task operation failed', err);
+        }
+      });
+      return;
+    }
+
+    this.fetchAllTasks();
+    onSuccess?.();
+  }
+
+  fetchAllTasks() {
+    this.taskService.fetchAllTasks().subscribe({
+      next: (data) => {
+        this.allTasks = formatData(data);
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+      },
+      error: (err: unknown) => {
+        console.error('Fetch tasks failed', err);
+      }
+    });
   }
 }
