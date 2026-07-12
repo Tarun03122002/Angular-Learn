@@ -1,6 +1,6 @@
 <div class="overlay">
   <div class="popup">
-    <h2>'Create a new Task</h2>
+    <h2>{{taskFormHeaderLabel}}</h2>
     <a class="close" href="#" (click)="OnCloseForm()">&times;</a>
     <div class="content">
       <section class="container">
@@ -45,7 +45,12 @@
               </div>
             </div>
           </div>
+          @if(updateTask){
+          <button>Update Task</button>
+          }
+          @else{
           <button>Create Task</button>
+          }
         </form>
       </section>
     </div>

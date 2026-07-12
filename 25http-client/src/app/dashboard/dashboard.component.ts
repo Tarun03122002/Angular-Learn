@@ -13,14 +13,17 @@ export class DashboardComponent {
   showCreateTaskForm = false;
   taskService = inject(TaskService);
   allTasks: Task[] = [];
-
-  constructor(private cdr: ChangeDetectorRef) {}
+  updateTask: boolean = false
+  editFormData!: Task | null;
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.fetchAllTasks();
   }
 
   OpenCreateTaskForm() {
+    this.updateTask = false
+    this.editFormData = null
     this.showCreateTaskForm = true;
   }
 
@@ -29,15 +32,26 @@ export class DashboardComponent {
   }
 
   receivingTaskFormData(data: Task) {
-    // this.runAfterMutation(() =>
-      this.taskService.createTask(data,(res : any) => {
+    if (!this.updateTask) {
+      // this.runAfterMutation(() =>
+      this.taskService.createTask(data, (res: any) => {
         console.log(res);
-         this.fetchAllTasks()
-         this.CloseCreateTaskForm()
-        
+        this.fetchAllTasks()
+        this.CloseCreateTaskForm()
+
       })
-    //   this.CloseCreateTaskForm();
-    // });
+      //   this.CloseCreateTaskForm();
+      // });
+    } else {
+      data.id = this.editFormData?.id
+      this.taskService.updateTask(data, (res: any) => {
+        console.log(res);
+        this.fetchAllTasks()
+        this.CloseCreateTaskForm()
+
+      })
+    }
+
   }
 
   onDeleteTask(id: string | undefined) {
@@ -72,6 +86,8 @@ export class DashboardComponent {
     this.taskService.fetchAllTasks().subscribe({
       next: (data) => {
         this.allTasks = formatData(data);
+        console.log(this.allTasks ,"ALL TASK");
+        
         this.cdr.markForCheck();
         this.cdr.detectChanges();
       },
@@ -79,5 +95,10 @@ export class DashboardComponent {
         console.error('Fetch tasks failed', err);
       }
     });
+  }
+  editTask(task: Task) {
+    this.showCreateTaskForm = true
+    this.updateTask = true
+    this.editFormData = task
   }
 }

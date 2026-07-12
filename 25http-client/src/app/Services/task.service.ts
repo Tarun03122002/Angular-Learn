@@ -9,14 +9,23 @@ export class TaskService {
 
   constructor(private readonly http: HttpClient) { }
 
-  createTask(task: Task,callback : any) {
+  createTask(task: Task, callback: any) {
     console.log("Form data to be added in DB", task);
-     this.http.post<{ key: string }>(
+    this.http.post<{ key: string }>(
       'https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json',
       task
     ).subscribe((data) => {
-        callback(data)
+      callback(data)
     });
+  }
+
+  updateTask(task: Task,callback : any) {
+    this.http.put<{ key: string }>(
+      'https://httpclient-4723f-default-rtdb.firebaseio.com/tasks/'+task.id+'.json',
+      task
+    ).subscribe((data) => {
+      callback(data)
+    })
   }
 
   deleteTask(id: string | undefined) {
