@@ -1,6 +1,6 @@
 import { Task } from "../Models/TaskModel"
 
-export function formatData  (data: { [key: string]: Task }) {
+export function formatData  (data: { [key: string]: Task } | unknown) {
     const  allTasks : Task[]= []
     const listOfIds = Object.keys(data ?? {})
     const listOfTasks = Object.values(data ?? {})
