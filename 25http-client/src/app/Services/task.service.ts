@@ -42,7 +42,7 @@ export class TaskService {
 
   fetchAllTasks() {
     return this.http.get<{ [key: string]: Task }>(
-      'https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json'
+      'https://httpclient-4723f-default-rtdb11.firebaseio.com/tasks.json'
     );
   }
 }

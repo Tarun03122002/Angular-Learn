@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { Task } from '../Models/TaskModel';
 import { TaskService } from '../Services/task.service';
 import { formatData } from '../helpers/taskFormatData';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,7 @@ export class DashboardComponent {
   updateTask: boolean = false
   editFormData!: Task | null;
   isLoading: boolean = false
+  errorMessage: string | null = ''
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -94,10 +96,21 @@ export class DashboardComponent {
         this.cdr.markForCheck();
         this.cdr.detectChanges();
       },
-      error: (err: unknown) => {
+      error: (err: HttpErrorResponse) => {
+        this.setErrorMessage(err)
+        this.cdr.detectChanges();
         console.error('Fetch tasks failed', err);
       }
     });
+  }
+
+  setErrorMessage(error: HttpErrorResponse) {
+    this.isLoading = false
+    this.errorMessage = error?.error?.error
+    setTimeout(() => {
+      this.errorMessage = ''
+      this.cdr.detectChanges()
+    }, 3000)
   }
   editTask(task: Task) {
     this.showCreateTaskForm = true
