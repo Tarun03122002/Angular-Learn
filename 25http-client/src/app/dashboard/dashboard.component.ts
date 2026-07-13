@@ -3,6 +3,7 @@ import { Task } from '../Models/TaskModel';
 import { TaskService } from '../Services/task.service';
 import { formatData } from '../helpers/taskFormatData';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,12 +19,23 @@ export class DashboardComponent {
   editFormData!: Task | null;
   isLoading: boolean = false
   errorMessage: string | null = ''
+  destroy! : Subscription
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.fetchAllTasks();
+    this.destroy = this.taskService.errorSubject.subscribe({
+      next: (error) => {
+        console.log(error);
+
+        this.setErrorMessage(error)
+      }
+    })
   }
 
+  ngOnDestroy(){
+    this.destroy.unsubscribe()
+  }
   OpenCreateTaskForm() {
     this.updateTask = false
     this.editFormData = null
@@ -74,8 +86,10 @@ export class DashboardComponent {
           this.fetchAllTasks();
           onSuccess?.();
         },
-        error: (err: unknown) => {
+        error: (err: HttpErrorResponse) => {
           console.error('Task operation failed', err);
+          this.setErrorMessage(err)
+
         }
       });
       return;
@@ -107,6 +121,8 @@ export class DashboardComponent {
   setErrorMessage(error: HttpErrorResponse) {
     this.isLoading = false
     this.errorMessage = error?.error?.error
+    this.cdr.detectChanges()
+
     setTimeout(() => {
       this.errorMessage = ''
       this.cdr.detectChanges()
