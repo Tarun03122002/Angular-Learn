@@ -1,5 +1,5 @@
-<app-create-task [formData]="editFormData" [isUpdateTask]="updateTask" *ngIf="showCreateTaskForm" (CloseForm)="CloseCreateTaskForm()"
-    (taskFormData)="receivingTaskFormData($event)"></app-create-task>
+<app-create-task [formData]="editFormData" [isUpdateTask]="updateTask" *ngIf="showCreateTaskForm"
+    (CloseForm)="CloseCreateTaskForm()" (taskFormData)="receivingTaskFormData($event)"></app-create-task>
 
 <div class="dashboard-container">
     <div style="display: flex;">
@@ -16,31 +16,38 @@
     <hr>
 
     <div class="dashboard-item-container">
-        @if(!allTasks.length){
-        <div>
-            <h2 style="text-align:center">No Tasks Created Yet</h2>
-        </div>
+        @if(isLoading){
+        <div class="loader"></div>
         }
-        @for(task of allTasks;track task.id; ){
-        <div class="task-item" [class]=`task-${task?.status}`>
-            <div class="task-title">
-                <h3>{{task?.title | titlecase}}</h3>
+        @else{
+        <ng-container>
+            @if(!allTasks.length){
+            <div>
+                <h2 style="text-align:center">No Tasks Created Yet</h2>
             </div>
-            <p><b>Assigned to: </b>{{task?.assignedTo | titlecase}}</p>
-            <p><b>Priority: </b>{{task?.priority | titlecase}}</p>
-            <p><b>Status: </b>{{task?.status | titlecase}}</p>
-            <div class="task-action-icons">
-                <button class="task-action-btn" title="Detail">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                </button>
-                <button class="task-action-btn" title="Edit">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"  (click)="editTask(task)"></i>
-                </button>
-                <button class="task-action-btn" title="Delete">
-                    <i class="fa fa-trash" aria-hidden="true" (click)="onDeleteTask(task.id)"></i>
-                </button>
+            }
+            @for(task of allTasks;track task.id; ){
+            <div class="task-item" [class]=`task-${task?.status}`>
+                <div class="task-title">
+                    <h3>{{task?.title | titlecase}}</h3>
+                </div>
+                <p><b>Assigned to: </b>{{task?.assignedTo | titlecase}}</p>
+                <p><b>Priority: </b>{{task?.priority | titlecase}}</p>
+                <p><b>Status: </b>{{task?.status | titlecase}}</p>
+                <div class="task-action-icons">
+                    <button class="task-action-btn" title="Detail">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </button>
+                    <button class="task-action-btn" title="Edit">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="editTask(task)"></i>
+                    </button>
+                    <button class="task-action-btn" title="Delete">
+                        <i class="fa fa-trash" aria-hidden="true" (click)="onDeleteTask(task.id)"></i>
+                    </button>
+                </div>
             </div>
-        </div>
+            }
+        </ng-container>
         }
     </div>
 </div>

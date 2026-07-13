@@ -15,6 +15,7 @@ export class DashboardComponent {
   allTasks: Task[] = [];
   updateTask: boolean = false
   editFormData!: Task | null;
+  isLoading: boolean = false
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -83,11 +84,13 @@ export class DashboardComponent {
   }
 
   fetchAllTasks() {
+    this.isLoading = true
+    this.cdr.detectChanges();
     this.taskService.fetchAllTasks().subscribe({
       next: (data) => {
         this.allTasks = formatData(data);
-        console.log(this.allTasks ,"ALL TASK");
-        
+        console.log(this.allTasks, "ALL TASK");
+        this.isLoading = false
         this.cdr.markForCheck();
         this.cdr.detectChanges();
       },
