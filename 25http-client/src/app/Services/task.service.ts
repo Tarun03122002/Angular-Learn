@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Task } from "../Models/TaskModel";
 import { catchError, Subject, throwError } from "rxjs";
@@ -98,6 +98,12 @@ export class TaskService {
   }
 
   getTaskDetails(id: string | undefined) {
-    return this.http.get<Task>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks/' + id + ".json")
+    // sending  Query string in api endpoint
+    let queryString = new HttpParams() //immutable
+    queryString = queryString.set('pageNo',1);
+    queryString = queryString.set('noOfRecords',20)
+    return this.http.get<Task>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks/' + id + ".json",
+      {params : queryString}
+    )
   }
 }
