@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Task } from "../Models/TaskModel";
 import { catchError, Subject, throwError } from "rxjs";
@@ -73,8 +73,23 @@ export class TaskService {
   }
 
   fetchAllTasks() {
+    // sending headers in http request
+    let headers = new HttpHeaders({ 'new-header': 'Science' })
+    // other ways to send headers using set method and append method 
+    // HttpHeaders IS IMMUTABLE 
+    // immutability means that a value cannot be changed after it is created. Instead of modifying the original data structure directly, any updates or changes must return a NEW INSTANCE or reference
+    headers = headers.set('Content-Type', 'application/json'),
+      headers = headers.set('Allow-Cross-Origin-Headers', "*")
+
+    // diff b/w set and append
+    // set method will replace if value is already present for a header
+    // append method will add in list(UI -> comma separated) if value is already for a header
+    headers = headers.set('new-header', 'QWERTY')
+    headers = headers.append('new-header', 'keyboard')
+
     return this.http.get<{ [key: string]: Task }>(
-      'https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json'
+      'https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json',
+      { headers: headers }
     ).pipe(catchError((err) => {
       const data = { status: err.status, message: err.message, dateTime: new Date() }
       this.logService.logErrorInDB(data)
@@ -82,7 +97,7 @@ export class TaskService {
     }));
   }
 
-  getTaskDetails(id: string | undefined){
-    return this.http.get<Task>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks/'+id+".json")
+  getTaskDetails(id: string | undefined) {
+    return this.http.get<Task>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks/' + id + ".json")
   }
 }
