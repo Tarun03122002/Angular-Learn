@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Task } from "../Models/TaskModel";
-import { catchError, Subject, throwError } from "rxjs";
+import { catchError, Subject, tap, throwError } from "rxjs";
 import { LoggerService } from "./logs.service";
 
 @Injectable({
@@ -100,10 +100,55 @@ export class TaskService {
   getTaskDetails(id: string | undefined) {
     // sending  Query string in api endpoint
     let queryString = new HttpParams() //immutable
-    queryString = queryString.set('pageNo',1);
-    queryString = queryString.set('noOfRecords',20)
-    return this.http.get<Task>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks/' + id + ".json",
-      {params : queryString}
-    )
+    queryString = queryString.set('pageNo', 1);
+    queryString = queryString.set('noOfRecords', 20)
+    // observe response and Response types
+
+    // by default observe value is body 
+    // by default responseType "json" so we get response in json which angular automtically converst into JS object
+    return this.http.get<Task | any>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks/' + id + ".json",
+      {
+        params: queryString,
+        // observe : 'body'
+        // observe : 'response'//return HttpResponse OBJECT
+        observe: 'events'
+
+      }
+    ).pipe(tap((res) => {
+      // response Type enum
+      //         declare enum HttpEventType {
+      //     /**
+      //      * The request was sent out over the wire.
+      //      */
+      //     Sent = 0,
+      //     /**
+      //      * An upload progress event was received.
+      //      *
+      //      * Note: The `FetchBackend` doesn't support progress report on uploads.
+      //      */
+      //     UploadProgress = 1,
+      //     /**
+      //      * The response status code and headers were received.
+      //      */
+      //     ResponseHeader = 2,
+      //     /**
+      //      * A download progress event was received.
+      //      */
+      //     DownloadProgress = 3,
+      //     /**
+      //      * The full response including the body was received.
+      //      */
+      //     Response = 4,
+      //     /**
+      //      * A custom event from an interceptor or a backend.
+      //      */
+      //     User = 5
+      // }
+      if (HttpEventType.Response == res.type) {
+      console.log("RESPONSE HTTP EVENT", res);
+
+      }
+      // use case if request is sent -> event type is 0 -> show either toaster or loader 
+    }))
   }
 }

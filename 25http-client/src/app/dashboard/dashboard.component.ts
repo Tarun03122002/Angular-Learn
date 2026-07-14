@@ -139,7 +139,7 @@ export class DashboardComponent {
   onTaskDetailClick(id: string | undefined) {
     this.showTaskDetails = true
     this.cdr.detectChanges()
-    this.taskService.getTaskDetails(id).subscribe((data : Task) => {
+    this.taskService.getTaskDetails(id).subscribe((data : Task | any) => {
       console.log("Task Details", data);
       this.currentTaskDetails = data
       this.cdr.detectChanges()
