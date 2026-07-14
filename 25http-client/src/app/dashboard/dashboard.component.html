@@ -1,6 +1,8 @@
 <app-create-task [formData]="editFormData" [isUpdateTask]="updateTask" *ngIf="showCreateTaskForm"
     (CloseForm)="CloseCreateTaskForm()" (taskFormData)="receivingTaskFormData($event)"></app-create-task>
-
+@if(showTaskDetails && currentTaskDetails){
+<app-task-details [currentTaskDetails]="currentTaskDetails" (taskDetailsCloseEventEmitter)="taskDetailsClosed($event)"></app-task-details>
+}
 <div class="dashboard-container">
     <div style="display: flex;">
         <div style="width: 50%">
@@ -17,7 +19,7 @@
 
     <div class="dashboard-item-container">
         @if(errorMessage){
-        <div class="sb sb-error" >{{ errorMessage }}</div>
+        <div class="sb sb-error">{{ errorMessage }}</div>
         }
         @if(isLoading){
         <div class="loader"></div>
@@ -38,7 +40,7 @@
                 <p><b>Priority: </b>{{task?.priority | titlecase}}</p>
                 <p><b>Status: </b>{{task?.status | titlecase}}</p>
                 <div class="task-action-icons">
-                    <button class="task-action-btn" title="Detail">
+                    <button class="task-action-btn" title="Detail" (click)="onTaskDetailClick(task.id)">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                     </button>
                     <button class="task-action-btn" title="Edit">

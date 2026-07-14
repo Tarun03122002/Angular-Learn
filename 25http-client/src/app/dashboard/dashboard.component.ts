@@ -19,7 +19,9 @@ export class DashboardComponent {
   editFormData!: Task | null;
   isLoading: boolean = false
   errorMessage: string | null = ''
-  destroy! : Subscription
+  destroy!: Subscription
+  showTaskDetails: boolean = false
+  currentTaskDetails : Task | null = null
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class DashboardComponent {
     })
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroy.unsubscribe()
   }
   OpenCreateTaskForm() {
@@ -132,5 +134,22 @@ export class DashboardComponent {
     this.showCreateTaskForm = true
     this.updateTask = true
     this.editFormData = task
+  }
+
+  onTaskDetailClick(id: string | undefined) {
+    this.showTaskDetails = true
+    this.cdr.detectChanges()
+    this.taskService.getTaskDetails(id).subscribe((data : Task) => {
+      console.log("Task Details", data);
+      this.currentTaskDetails = data
+      this.cdr.detectChanges()
+
+    })
+  }
+
+  taskDetailsClosed(event: any) {
+    this.showTaskDetails = false
+    this.currentTaskDetails = null
+    this.cdr.detectChanges()
   }
 }

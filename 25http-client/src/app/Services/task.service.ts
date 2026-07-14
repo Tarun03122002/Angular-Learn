@@ -81,4 +81,8 @@ export class TaskService {
       return throwError(() => err);
     }));
   }
+
+  getTaskDetails(id: string | undefined){
+    return this.http.get<Task>('https://httpclient-4723f-default-rtdb.firebaseio.com/tasks/'+id+".json")
+  }
 }
