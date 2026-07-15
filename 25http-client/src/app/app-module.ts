@@ -11,6 +11,7 @@ import { TaskDetailsComponent } from './dashboard/task-details/task-details.comp
 import { FormsModule } from '@angular/forms';
 import {  HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptor } from './Services/auth-interceptor.service';
+import { LoginInterceptor } from './Services/login-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -29,8 +30,11 @@ import { AuthInterceptor } from './Services/auth-interceptor.service';
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptorsFromDi()),
-    {provide : HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
+    {provide : HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
+    {provide : HTTP_INTERCEPTORS,useClass : LoginInterceptor,multi : true}
   ],
   bootstrap: [App]
 })
 export class AppModule { }
+// if multiple interceptors are there,it will resolve in the order in which it is added in providers array
+// Client/Application -> AuthInterceptor -> LoginInterceptor -> Server
