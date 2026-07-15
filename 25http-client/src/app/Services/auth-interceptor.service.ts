@@ -16,7 +16,12 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         console.log('Auth Interceptor called', req);
-        return next.handle(req).pipe(tap((event) => {
+
+        // modifying headers (HttpRequest is also immutable)
+        // First create clone of request and then updating headers
+
+        let modifyRequest = req.clone({headers : req.headers.append('auth-header','1')})
+        return next.handle(modifyRequest).pipe(tap((event) => {
             if(event.type == HttpEventType.Response)
                 console.log("BODY",event);
                 
