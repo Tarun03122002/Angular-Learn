@@ -5,4 +5,5 @@ export class AuthResponse{
     expiresIn : string ;//no of seconds in which idToken(jwt token) expires
     localId : string;
     kind? : string;
+    registered? : boolean
 }

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../Services/Auth.Service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,6 +20,8 @@ export class LoginComponent {
 
   errorMessage: string | null = null
 
+  router : Router = inject(Router)
+
   ngOnInit() {
 
     this.createForm()
@@ -33,14 +36,29 @@ export class LoginComponent {
 
   public onSubmit() {
     console.log(this.loginSignUpForm.value, "form");
+    const { userName, password } = this.loginSignUpForm.value
+    this.loginSignUpForm.reset()
+    this.isLoading = true
     if (this.isLogin) {
-      return
+      this.authService.login(userName, password).subscribe({
+        next: (resp) => {
+
+          console.log("Login", resp);
+          this.isLoading = false
+          this.router.navigate(['/dashboard'])
+
+        },
+        error: (message) => {
+          this.setErrorMessage(message)
+
+        }
+      })
     } else {
-      this.isLoading = true
-      this.authService.signup(this.loginSignUpForm.value.userName, this.loginSignUpForm.value.password).subscribe({
+      this.authService.signup(userName, password).subscribe({
         next: (data) => {
           console.log("Sign up ", data);
           this.isLoading = false
+          this.router.navigate(['/dashboard'])
 
         },
         error: (errorMessage) => {

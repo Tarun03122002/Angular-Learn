@@ -2,9 +2,7 @@
     @if(errorMessage){
     <app-snackbar [errorMessage]="errorMessage"></app-snackbar>
     }
-    @if(isLoading){
-    <app-loader></app-loader>
-    }@else{
+
     <h2>{{isLogin ? 'Login' : 'Register'}} Here</h2>
     <form [formGroup]="loginSignUpForm" (ngSubmit)="onSubmit()">
         <div class="form-input">
@@ -22,5 +20,8 @@
                 Here.</button>
         </p>
     </form>
+    @if(isLoading){
+    <app-loader></app-loader>
     }
+
 </div>
