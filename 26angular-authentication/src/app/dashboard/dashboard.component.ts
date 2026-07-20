@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { Task } from '../Model/Task';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { TaskService } from '../Services/task.service';
@@ -27,6 +27,8 @@ export class DashboardComponent implements OnInit {
   selectedTask! :Task | undefined
 
   errorSub!: Subscription
+
+  cdr : ChangeDetectorRef = inject(ChangeDetectorRef)
 
   ngOnInit() {
     this.fetchAllTasks();
