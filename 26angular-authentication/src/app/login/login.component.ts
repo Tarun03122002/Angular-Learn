@@ -4,6 +4,7 @@ import { AuthService } from '../Services/Auth.Service';
 import { Router } from '@angular/router';
 import { User } from '../Model/User';
 import { AuthResponse } from '../Model/AuthResponse';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,6 +25,9 @@ export class LoginComponent {
 
   router: Router = inject(Router)
 
+  login!: Subscription
+  signUp!: Subscription
+
   ngOnInit() {
 
     this.createForm()
@@ -42,10 +46,11 @@ export class LoginComponent {
     this.loginSignUpForm.reset()
     this.isLoading = true
     if (this.isLogin) {
-      this.authService.login(userName, password).subscribe({
+      this.login = this.authService.login(userName, password).subscribe({
         next: (resp) => {
           console.log("Login", resp);
-          this.addUserToMaintainState(resp)
+          this.isLoading = false
+          this.router.navigate(['/dashboard'])
         },
         error: (message) => {
           this.setErrorMessage(message)
@@ -53,11 +58,11 @@ export class LoginComponent {
         }
       })
     } else {
-      this.authService.signup(userName, password).subscribe({
+      this.signUp = this.authService.signup(userName, password).subscribe({
         next: (data) => {
           console.log("Sign up ", data);
-          this.addUserToMaintainState(data)
-
+          this.isLoading = false
+          this.router.navigate(['/dashboard'])
         },
         error: (errorMessage) => {
           this.setErrorMessage(errorMessage)
@@ -79,11 +84,9 @@ export class LoginComponent {
     }, 3000)
   }
 
-  private addUserToMaintainState(data: AuthResponse) {
-    this.isLoading = false
-    const tokenExpiresDataTS = new Date(new Date().getTime() + +data.expiresIn);
-    const newUser = new User(data.localId, data.email, tokenExpiresDataTS, data.idToken)
-    this.authService.loggedInUserData.next(newUser);
-    this.router.navigate(['/dashboard'])
+
+  ngOnDestroy() {
+    this.login?.unsubscribe()
+    this.signUp?.unsubscribe()
   }
 }
