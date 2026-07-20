@@ -1,17 +1,17 @@
 <div class="app-login-form">
-    <h2>Login Here</h2>
-    <form>
+    <h2>{{isLogin ? 'Login' : 'Register'}} Here</h2>
+    <form [formGroup]="loginSignUpForm" (ngSubmit)="onSubmit()">
         <div class="form-input">
             <label>Email Address</label>
-            <input type="email" placeholder="Email address">
+            <input type="email" placeholder="Email address" formControlName="userName">
         </div>
         <div class="form-input">
             <label>Password</label>
-            <input type="password" placeholder="Password">
+            <input type="password" placeholder="Password" formControlName="password">
         </div>           
-        <button type="submit" class="app-login-btn">Login</button>
-        <p>Do not have an accout yet? 
-            <button class="app-toggle-btn">Register Here.</button>
+        <button [disabled]="loginSignUpForm.invalid" type="submit" class="app-login-btn">{{isLogin ?"Login" : 'Register'}}</button>
+        <p>{{isLogin ? 'Do not have an accout yet' : 'Already Registered'}}? 
+            <button class="app-toggle-btn" (click)="toggleForm()">{{isLogin ? "Register" : "Login"}} Here.</button>
         </p>
     </form>
 </div>
