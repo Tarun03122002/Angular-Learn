@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../Services/Auth.Service';
 import { Router } from '@angular/router';
+import { User } from '../Model/User';
+import { AuthResponse } from '../Model/AuthResponse';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +22,7 @@ export class LoginComponent {
 
   errorMessage: string | null = null
 
-  router : Router = inject(Router)
+  router: Router = inject(Router)
 
   ngOnInit() {
 
@@ -42,11 +44,8 @@ export class LoginComponent {
     if (this.isLogin) {
       this.authService.login(userName, password).subscribe({
         next: (resp) => {
-
           console.log("Login", resp);
-          this.isLoading = false
-          this.router.navigate(['/dashboard'])
-
+          this.addUserToMaintainState(resp)
         },
         error: (message) => {
           this.setErrorMessage(message)
@@ -57,8 +56,7 @@ export class LoginComponent {
       this.authService.signup(userName, password).subscribe({
         next: (data) => {
           console.log("Sign up ", data);
-          this.isLoading = false
-          this.router.navigate(['/dashboard'])
+          this.addUserToMaintainState(data)
 
         },
         error: (errorMessage) => {
@@ -79,5 +77,13 @@ export class LoginComponent {
     setTimeout(() => {
       this.errorMessage = ''
     }, 3000)
+  }
+
+  private addUserToMaintainState(data: AuthResponse) {
+    this.isLoading = false
+    const tokenExpiresDataTS = new Date(new Date().getTime() + +data.expiresIn);
+    const newUser = new User(data.localId, data.email, tokenExpiresDataTS, data.idToken)
+    this.authService.loggedInUserData.next(newUser);
+    this.router.navigate(['/dashboard'])
   }
 }

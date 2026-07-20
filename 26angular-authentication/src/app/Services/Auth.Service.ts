@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { AuthResponse } from "../Model/AuthResponse";
-import { catchError, throwError } from "rxjs";
+import { catchError, Subject, throwError } from "rxjs";
+import { User } from "../Model/User";
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +11,8 @@ export class AuthService {
 
 
     http: HttpClient = inject(HttpClient)
+
+    loggedInUserData = new Subject<User>()
 
     signup(userId, password) {
         const data = { email: userId, password: password ,returnSecureToken : true }
