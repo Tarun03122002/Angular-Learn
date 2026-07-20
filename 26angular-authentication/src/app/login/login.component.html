@@ -1,4 +1,7 @@
 <div class="app-login-form">
+    @if(errorMessage){
+    <app-snackbar [errorMessage]="errorMessage"></app-snackbar>
+    }
     @if(isLoading){
     <app-loader></app-loader>
     }@else{

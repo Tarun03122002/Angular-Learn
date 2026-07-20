@@ -15,8 +15,9 @@ export class LoginComponent {
 
   authService: AuthService = inject(AuthService)
 
-  isLoading : boolean = false
+  isLoading: boolean = false
 
+  errorMessage: string | null = null
 
   ngOnInit() {
 
@@ -36,10 +37,15 @@ export class LoginComponent {
       return
     } else {
       this.isLoading = true
-      this.authService.signup(this.loginSignUpForm.value.userName, this.loginSignUpForm.value.password).subscribe((data) => {
-        console.log("Sign up ", data);
-        this.isLoading = false
+      this.authService.signup(this.loginSignUpForm.value.userName, this.loginSignUpForm.value.password).subscribe({
+        next: (data) => {
+          console.log("Sign up ", data);
+          this.isLoading = false
 
+        },
+        error: (errorMessage) => {
+          this.setErrorMessage(errorMessage)
+        }
       })
     }
 
@@ -47,5 +53,13 @@ export class LoginComponent {
 
   public toggleForm() {
     this.isLogin = !this.isLogin
+  }
+
+  private setErrorMessage(errorMessage: string) {
+    this.isLoading = false
+    this.errorMessage = errorMessage
+    setTimeout(() => {
+      this.errorMessage = ''
+    }, 3000)
   }
 }

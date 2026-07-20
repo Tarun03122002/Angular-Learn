@@ -27,7 +27,9 @@
     <hr>
 
     <div class="dashboard-item-container">
-        <div class="sb sb-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+        @if(errorMessage){
+            <app-snackbar [errorMessage]="errorMessage"></app-snackbar>
+        }
         <app-loader></app-loader>
         <div style="text-align: center;" *ngIf="allTasks.length < 1">
             <h2>No task has been created yet!</h2>

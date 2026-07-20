@@ -19,6 +19,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { AuthInterceptorService } from './Services/auth-interceptor.service';
 import { LoggingInterceptorService } from './Services/logging-interceptor.servive';
 import { Loader } from './Utility/loader/loader';
+import { Snackbar } from './Utility/snackbar/snackbar';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { Loader } from './Utility/loader/loader';
     HomeComponent,
     LoginComponent,
     Loader,
+    Snackbar,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, AppRoutingModule],
   providers: [
