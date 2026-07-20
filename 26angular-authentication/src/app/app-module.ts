@@ -1,4 +1,8 @@
-import { NgModule, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import {
+  NgModule,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
@@ -14,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptorService } from './Services/auth-interceptor.service';
 import { LoggingInterceptorService } from './Services/logging-interceptor.servive';
+import { Loader } from './Utility/loader/loader';
 
 @NgModule({
   declarations: [
@@ -24,21 +29,17 @@ import { LoggingInterceptorService } from './Services/logging-interceptor.serviv
     CreateTaskComponent,
     TaskDetailsComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    Loader,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, AppRoutingModule],
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptorsFromDi()),
     provideZoneChangeDetection(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptorService, multi: true }],
-  bootstrap: [App]
+    // { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptorService, multi: true }
+  ],
+  bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}

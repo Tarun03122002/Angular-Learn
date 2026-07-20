@@ -1,35 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { AuthService } from '../Services/Auth.Service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  standalone:false,
+  standalone: false,
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
 
-  loginSignUpForm : FormGroup
+  loginSignUpForm: FormGroup
 
-  isLogin : boolean = true
+  isLogin: boolean = true
 
-  ngOnInit(){
+  authService: AuthService = inject(AuthService)
+
+  isLoading : boolean = false
+
+
+  ngOnInit() {
+
     this.createForm()
   }
 
-  private createForm(){
+  private createForm() {
     this.loginSignUpForm = new FormGroup({
-      userName : new FormControl('',[Validators.required]),
-      password : new FormControl('',[Validators.required,Validators.minLength(8)])
+      userName: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)])
     })
   }
 
-  public onSubmit(){
-    console.log(this.loginSignUpForm.value,"form");
-    
+  public onSubmit() {
+    console.log(this.loginSignUpForm.value, "form");
+    if (this.isLogin) {
+      return
+    } else {
+      this.isLoading = true
+      this.authService.signup(this.loginSignUpForm.value.userName, this.loginSignUpForm.value.password).subscribe((data) => {
+        console.log("Sign up ", data);
+        this.isLoading = false
+
+      })
+    }
+
   }
 
-  public toggleForm(){
+  public toggleForm() {
     this.isLogin = !this.isLogin
   }
 }
