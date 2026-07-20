@@ -2,8 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../Services/Auth.Service';
 import { Router } from '@angular/router';
-import { User } from '../Model/User';
-import { AuthResponse } from '../Model/AuthResponse';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-login',

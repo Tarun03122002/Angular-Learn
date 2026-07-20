@@ -12,7 +12,7 @@ export class AuthService {
 
     http: HttpClient = inject(HttpClient)
 
-    loggedInUserData = new BehaviorSubject<User>(null)
+    loggedInUserData = new Subject<User>()
 
     signup(userId, password) {
         const data = { email: userId, password: password, returnSecureToken: true }
@@ -34,7 +34,8 @@ export class AuthService {
     private handleError(err: HttpErrorResponse) {
 
         let defaultMessage = 'Please try again later'
-        debugger
+        if(!err.error || !err?.error?.error?.message)
+            return defaultMessage
         switch (err.error.error.message) {
             case 'EMAIL_EXISTS':
                 return "EMAIL ALREADY EXISTS";
@@ -51,8 +52,9 @@ export class AuthService {
     }
 
     private createUser(data : AuthResponse) {
-        const tokenExpiresDataTS = new Date(new Date().getTime() + +data.expiresIn);
-        const newUser = new User(data.localId, data.email, tokenExpiresDataTS, data.idToken)
+        const tokenExpiresDataTS =new Date().getTime() + +data.expiresIn;
+        const tokenExiresDate = new Date(tokenExpiresDataTS)
+        const newUser = new User(data.localId, data.email, tokenExiresDate, data.idToken)
         this.loggedInUserData.next(newUser);
     }
 }

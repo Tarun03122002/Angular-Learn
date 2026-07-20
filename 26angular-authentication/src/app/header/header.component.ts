@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../Services/Auth.Service';
 import { User } from '../Model/User';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -16,13 +17,18 @@ export class HeaderComponent {
 
   }
 
+  userSubject : Subscription
   isLoggedIn: boolean = false
-  ngOnOnit() {
+  ngOnInit() {
     this.authService.loggedInUserData.subscribe((resp : User) => {
       debugger
       console.log("r4sp",resp);
       
       this.isLoggedIn = resp.token ? true : false
     })
+  }
+
+  ngOnDestroy(){
+    this.userSubject?.unsubscribe()
   }
 }
