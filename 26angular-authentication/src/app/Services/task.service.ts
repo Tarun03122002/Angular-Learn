@@ -83,27 +83,25 @@ export class TaskService {
 
         // loggedInUserData is a subject ,it will be listened as soon as it emit value(it will not store latest emitted value so behaviour subject will be used whhich will store the last emitted value)
         // now on clicking fetch tasks"da" is logged as behaiour subject is storing last emitted value
-        return this.authService.loggedInUserData.pipe(take(1), exhaustMap((user : User) => {
-            return this.http.get<{ [key: string]: Task }>(
-                'https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json',
-                {params : new HttpParams().set('auth',user?.token ?? null)}
-            ).pipe(map((response) => {
-                //TRANSFORM DATA
-                let tasks = [];
-                console.log(response);
-                for (let key in response) {
-                    if (response.hasOwnProperty(key)) {
-                        tasks.push({ ...response[key], id: key });
-                    }
-                }
 
-                return tasks;
-            }), catchError((err) => {
-                //Write the logic to log errors
-                const errorObj = { statusCode: err.status, errorMessage: err.message, datetime: new Date() }
-                this.loggingService.logError(errorObj);
-                return throwError(() => err);
-            }))
+        return this.http.get<{ [key: string]: Task }>(
+            'https://httpclient-4723f-default-rtdb.firebaseio.com/tasks.json'
+        ).pipe(map((response) => {
+            //TRANSFORM DATA
+            let tasks = [];
+            console.log(response);
+            for (let key in response) {
+                if (response.hasOwnProperty(key)) {
+                    tasks.push({ ...response[key], id: key });
+                }
+            }
+
+            return tasks;
+        }), catchError((err) => {
+            //Write the logic to log errors
+            const errorObj = { statusCode: err.status, errorMessage: err.message, datetime: new Date() }
+            this.loggingService.logError(errorObj);
+            return throwError(() => err);
         }))
         // .subscribe((data) => {
         //     console.log(data, "da");
