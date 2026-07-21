@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-    standalone:false,
+  standalone: false,
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
@@ -24,11 +24,11 @@ export class DashboardComponent implements OnInit {
   errorMessage: string | null = null;
 
   editMode: boolean = false;
-  selectedTask! :Task | undefined
+  selectedTask!: Task | undefined
 
   errorSub!: Subscription
 
-  cdr : ChangeDetectorRef = inject(ChangeDetectorRef)
+  cdr: ChangeDetectorRef = inject(ChangeDetectorRef)
 
   ngOnInit() {
     this.fetchAllTasks();
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
   showCurrentTaskDetails(id: string | undefined) {
     this.showTaskDetails = true;
     this.taskService.getTaskDetails(id).subscribe({
-      next : (data) => {
+      next: (data) => {
         this.selectedTask = data as Task
       }
     });
@@ -89,14 +89,16 @@ export class DashboardComponent implements OnInit {
         this.allTasks = tasks;
         this.isLoading = false;
       }, error: (error) => {
-        this.setErrorMessage(error);
         this.isLoading = false;
+        this.setErrorMessage(error);
       }
     })
   }
 
   private setErrorMessage(err: HttpErrorResponse) {
-    if (err.error.error === 'Permission denied') {
+    console.log(err);
+
+    if (err?.error?.error === 'Permission denied') {
       this.errorMessage = 'You do not have permisssion to perform this action';
     }
     else {

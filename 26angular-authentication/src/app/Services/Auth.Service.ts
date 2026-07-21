@@ -12,7 +12,7 @@ export class AuthService {
 
     http: HttpClient = inject(HttpClient)
 
-    loggedInUserData = new Subject<User>()
+    loggedInUserData = new BehaviorSubject<User>(null)
 
     signup(userId, password) {
         const data = { email: userId, password: password, returnSecureToken: true }
