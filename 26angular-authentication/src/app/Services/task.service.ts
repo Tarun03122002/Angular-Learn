@@ -13,7 +13,6 @@ import { User } from "../Model/User";
 })
 export class TaskService {
     http: HttpClient = inject(HttpClient);
-    loggingService: LoggingService = inject(LoggingService);
     errorSubject = new Subject<HttpErrorResponse>();
 
     authService: AuthService = inject(AuthService)
@@ -27,7 +26,6 @@ export class TaskService {
             .pipe(catchError((err) => {
                 //Write the logic to log errors
                 const errorObj = { statusCode: err.status, errorMessage: err.message, datetime: new Date() }
-                this.loggingService.logError(errorObj);
                 return throwError(() => err);
             }))
             .subscribe({
@@ -42,7 +40,6 @@ export class TaskService {
             .pipe(catchError((err) => {
                 //Write the logic to log errors
                 const errorObj = { statusCode: err.status, errorMessage: err.message, datetime: new Date() }
-                this.loggingService.logError(errorObj);
                 return throwError(() => err);
             }))
             .subscribe({
@@ -62,7 +59,6 @@ export class TaskService {
             }), catchError((err) => {
                 //Write the logic to log errors
                 const errorObj = { statusCode: err.status, errorMessage: err.message, datetime: new Date() }
-                this.loggingService.logError(errorObj);
                 return throwError(() => err);
             }))
             .subscribe({
@@ -100,7 +96,6 @@ export class TaskService {
         }), catchError((err) => {
             //Write the logic to log errors
             const errorObj = { statusCode: err.status, errorMessage: err.message, datetime: new Date() }
-            this.loggingService.logError(errorObj);
             return throwError(() => err);
         }))
         // .subscribe((data) => {
@@ -117,7 +112,6 @@ export class TaskService {
             .pipe(catchError((err) => {
                 //Write the logic to log errors
                 const errorObj = { statusCode: err.status, errorMessage: err.message, datetime: new Date() }
-                this.loggingService.logError(errorObj);
                 return throwError(() => err);
             }))
             .subscribe({

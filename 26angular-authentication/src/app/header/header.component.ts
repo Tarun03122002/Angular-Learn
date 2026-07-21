@@ -22,7 +22,7 @@ export class HeaderComponent {
   isLoggedIn: boolean = false
   ngOnInit() {
     this.userSubject= this.authService.loggedInUserData.subscribe((resp : User) => {
-      console.log("r4sp",resp);
+      console.log("r4sp",resp,resp?.token);
       this.isLoggedIn = resp?.token ? true : false
     })
   }

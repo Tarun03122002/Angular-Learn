@@ -12,7 +12,7 @@ export class AuthInterceptorService implements HttpInterceptor{
         console.log('Auth Interceptor called!');
 
         return this.authService.loggedInUserData.pipe(take(1),exhaustMap((user : User) => {
-            if(!user) return next.handle(req)
+            if(!user || !user?.token) return next.handle(req)
             const modifiedRequest = req.clone({params : new HttpParams().set('auth',user.token)})
             return next.handle(modifiedRequest)
         }))

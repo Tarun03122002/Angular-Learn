@@ -37,14 +37,15 @@ export class AuthService {
     }
 
     autoLogin() {
-        const loggedInUser = JSON.parse(localStorage.getItem('user'))
+        const loggedInUser  = JSON.parse(localStorage.getItem('user'))
         console.log(loggedInUser);
 
         if (!loggedInUser)
             return;
         console.log("no return");
-
-        this.loggedInUserData.next(loggedInUser)
+        const user = new User(loggedInUser.userId,loggedInUser.email,loggedInUser.expiresIn,loggedInUser._token)
+        if(user.token)
+        this.loggedInUserData.next(user)
     }
 
     private handleError(err: HttpErrorResponse) {
