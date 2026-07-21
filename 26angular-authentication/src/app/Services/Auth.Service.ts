@@ -12,7 +12,7 @@ export class AuthService {
 
     http: HttpClient = inject(HttpClient)
 
-    loggedInUserData = new BehaviorSubject<User>(null)
+    loggedInUserData = new BehaviorSubject<User>(undefined)
 
     signup(userId, password) {
         const data = { email: userId, password: password, returnSecureToken: true }
@@ -20,7 +20,7 @@ export class AuthService {
             console.log(err, "erroor");
             const errorMessage = this.handleError(err)
             return throwError(() => errorMessage)
-        }), tap(this.createUser))
+        }), tap((data) => this.createUser(data)))
     }
 
     login(userId, password) {
@@ -31,14 +31,26 @@ export class AuthService {
         }), tap((data) => this.createUser(data)))
     }
 
-    logout(){
+    logout() {
         this.loggedInUserData.next(null)
+        localStorage.removeItem('user')
+    }
+
+    autoLogin() {
+        const loggedInUser = JSON.parse(localStorage.getItem('user'))
+        console.log(loggedInUser);
+
+        if (!loggedInUser)
+            return;
+        console.log("no return");
+
+        this.loggedInUserData.next(loggedInUser)
     }
 
     private handleError(err: HttpErrorResponse) {
 
         let defaultMessage = 'Please try again later'
-        if(!err.error || !err?.error?.error?.message)
+        if (!err?.error || !err?.error?.error?.message)
             return defaultMessage
         switch (err.error.error.message) {
             case 'EMAIL_EXISTS':
@@ -55,10 +67,12 @@ export class AuthService {
 
     }
 
-    private createUser(data : AuthResponse) {
-        const tokenExpiresDataTS =new Date().getTime() + +data.expiresIn*1000;
+    private createUser(data: AuthResponse) {
+        const tokenExpiresDataTS = new Date().getTime() + +data.expiresIn * 1000;
         const tokenExiresDate = new Date(tokenExpiresDataTS)
         const newUser = new User(data.localId, data.email, tokenExiresDate, data.idToken)
+        localStorage.setItem('user', JSON.stringify(newUser))
+
         this.loggedInUserData.next(newUser);
     }
 }

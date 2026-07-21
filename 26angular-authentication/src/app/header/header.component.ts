@@ -21,7 +21,7 @@ export class HeaderComponent {
   userSubject : Subscription
   isLoggedIn: boolean = false
   ngOnInit() {
-    this.authService.loggedInUserData.subscribe((resp : User) => {
+    this.userSubject= this.authService.loggedInUserData.subscribe((resp : User) => {
       console.log("r4sp",resp);
       this.isLoggedIn = resp?.token ? true : false
     })
