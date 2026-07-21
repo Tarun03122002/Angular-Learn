@@ -52,7 +52,7 @@ export class AuthService {
     }
 
     private createUser(data : AuthResponse) {
-        const tokenExpiresDataTS =new Date().getTime() + +data.expiresIn;
+        const tokenExpiresDataTS =new Date().getTime() + +data.expiresIn*1000;
         const tokenExiresDate = new Date(tokenExpiresDataTS)
         const newUser = new User(data.localId, data.email, tokenExiresDate, data.idToken)
         this.loggedInUserData.next(newUser);

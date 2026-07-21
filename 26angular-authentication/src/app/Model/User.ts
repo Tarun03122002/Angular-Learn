@@ -9,7 +9,7 @@ export class User {
     }
 
     get token() { //not editable
-        if (!this._token )// this._expiresIn < new Date() remove this condition to check flow
+        if (!this._token ||  this._expiresIn < new Date())
             return null
         return this._token
     }
