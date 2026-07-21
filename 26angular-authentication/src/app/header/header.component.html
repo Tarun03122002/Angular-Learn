@@ -11,7 +11,7 @@
         <a routerLink="/dashboard">DASHBOARD</a>
         }
         @if(isLoggedIn){
-        <a routerLink="">LOGOUT</a>
+        <a (click)="onLogout()">LOGOUT</a>
         }@else{
         <a routerLink="/login">LOGIN</a>
 

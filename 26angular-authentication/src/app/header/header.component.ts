@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../Services/Auth.Service';
 import { User } from '../Model/User';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent {
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,private router : Router) {
 
   }
 
@@ -28,5 +29,10 @@ export class HeaderComponent {
 
   ngOnDestroy(){
     this.userSubject?.unsubscribe()
+  }
+
+  onLogout(){
+    this.authService.logout();
+    this.router.navigate(['/login'])
   }
 }

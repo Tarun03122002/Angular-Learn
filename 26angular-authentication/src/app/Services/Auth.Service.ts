@@ -31,6 +31,10 @@ export class AuthService {
         }), tap((data) => this.createUser(data)))
     }
 
+    logout(){
+        this.loggedInUserData.next(null)
+    }
+
     private handleError(err: HttpErrorResponse) {
 
         let defaultMessage = 'Please try again later'
