@@ -50,10 +50,10 @@ export class DashboardComponent implements OnInit {
   }
 
   showCurrentTaskDetails(id: string | undefined) {
-    this.showTaskDetails = true;
     this.taskService.getTaskDetails(id).subscribe({
-      next: (data) => {
-        this.selectedTask = data as Task
+      next: (data : Task) => {
+        this.showTaskDetails = true;
+        this.currentTask = data
       }
     });
   }
