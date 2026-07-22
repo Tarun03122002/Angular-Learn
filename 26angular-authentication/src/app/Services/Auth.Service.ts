@@ -43,7 +43,10 @@ export class AuthService {
         if (!loggedInUser)
             return;
         console.log("no return");
-        const user = new User(loggedInUser.userId,loggedInUser.email,loggedInUser.expiresIn,loggedInUser._token)
+
+        const expiresInDateTS = new Date().getTime() + +loggedInUser.expiresIn*1000;
+        const expireInDate = new Date(expiresInDateTS)
+        const user = new User(loggedInUser.userId,loggedInUser.email,expireInDate,loggedInUser._token)
         if(user.token)
         this.loggedInUserData.next(user)
     }
