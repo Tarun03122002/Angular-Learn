@@ -100,6 +100,6 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(newUser))
 
         this.loggedInUserData.next(newUser);
-        this.autoLogout(tokenExpiresDate)
+        this.autoLogout( +data.expiresIn * 1000)
     }
 }
