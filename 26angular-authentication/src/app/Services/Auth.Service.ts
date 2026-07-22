@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { AuthResponse } from "../Model/AuthResponse";
 import { BehaviorSubject, catchError, Subject, tap, throwError } from "rxjs";
 import { User } from "../Model/User";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +14,10 @@ export class AuthService {
     http: HttpClient = inject(HttpClient)
 
     loggedInUserData = new BehaviorSubject<User>(undefined)
+
+    router : Router = inject(Router)
+
+    private expiresTimerId : any
 
     signup(userId, password) {
         const data = { email: userId, password: password, returnSecureToken: true }
@@ -34,21 +39,38 @@ export class AuthService {
     logout() {
         this.loggedInUserData.next(null)
         localStorage.removeItem('user')
+        if(this.expiresTimerId){
+            clearTimeout(this.expiresTimerId)
+        }
     }
 
     autoLogin() {
-        const loggedInUser  = JSON.parse(localStorage.getItem('user'))
+        const loggedInUser = JSON.parse(localStorage.getItem('user'))
         console.log(loggedInUser);
 
         if (!loggedInUser)
             return;
         console.log("no return");
 
-        const expiresInDateTS = new Date().getTime() + +loggedInUser.expiresIn*1000;
+        const expiresInDateTS = new Date().getTime() + +loggedInUser.expiresIn * 1000;
         const expireInDate = new Date(expiresInDateTS)
-        const user = new User(loggedInUser.userId,loggedInUser.email,expireInDate,loggedInUser._token)
-        if(user.token)
-        this.loggedInUserData.next(user)
+        const user = new User(loggedInUser.userId, loggedInUser.email, expireInDate, loggedInUser._token)
+        if (user.token){
+            this.loggedInUserData.next(user)
+            const expiresIn = expireInDate.getTime() - new Date().getTime() //Future Time(secs) -Current Time(sec)
+            this.autoLogout(expiresIn)
+        }
+            
+    }
+
+    autoLogout(expiresInMilliSeconds) { // call when new user is emitted
+
+        this.expiresTimerId = setTimeout(() => {
+            this.logout();
+            this.router.navigate(['/login'])
+
+        },expiresInMilliSeconds)//autologout tested with 2000 ms (2sec)
+        // if we manually logout then we have to clerar timer otherwise two times logout will happen
     }
 
     private handleError(err: HttpErrorResponse) {
@@ -73,10 +95,11 @@ export class AuthService {
 
     private createUser(data: AuthResponse) {
         const tokenExpiresDataTS = new Date().getTime() + +data.expiresIn * 1000;
-        const tokenExiresDate = new Date(tokenExpiresDataTS)
-        const newUser = new User(data.localId, data.email, tokenExiresDate, data.idToken)
+        const tokenExpiresDate = new Date(tokenExpiresDataTS)
+        const newUser = new User(data.localId, data.email, tokenExpiresDate, data.idToken)
         localStorage.setItem('user', JSON.stringify(newUser))
 
         this.loggedInUserData.next(newUser);
+        this.autoLogout(tokenExpiresDate)
     }
 }
