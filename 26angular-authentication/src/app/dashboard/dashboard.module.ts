@@ -6,8 +6,7 @@ import { DashboardComponent } from "./dashboard.component";
 import { CreateTaskComponent } from "./create-task/create-task.component";
 import { TaskDetailsComponent } from "./task-details/task-details.component";
 import { CommonModule } from "@angular/common";
-import { Loader } from "../Utility/loader/loader";
-import { Snackbar } from "../Utility/snackbar/snackbar";
+import { SharedModule } from "../shared.module";
 
 // A feature module is a way of organizing all components,pipe,directives etc related to same feature together
 // We are now creating dashboard into featured module
@@ -31,7 +30,8 @@ import { Snackbar } from "../Utility/snackbar/snackbar";
 
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        SharedModule
     ]
 })
 export class DashboardModule {
