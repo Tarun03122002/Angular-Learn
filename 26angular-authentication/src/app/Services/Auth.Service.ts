@@ -52,12 +52,10 @@ export class AuthService {
             return;
         console.log("no return");
 
-        const expiresInDateTS = new Date().getTime() + +loggedInUser.expiresIn * 1000;
-        const expireInDate = new Date(expiresInDateTS)
-        const user = new User(loggedInUser.userId, loggedInUser.email, expireInDate, loggedInUser._token)
+        const user = new User(loggedInUser.userId, loggedInUser.email, loggedInUser.expireInDate, loggedInUser._token)
         if (user.token){
             this.loggedInUserData.next(user)
-            const expiresIn = expireInDate.getTime() - new Date().getTime() //Future Time(secs) -Current Time(sec)
+            const expiresIn = loggedInUser.expireInDate.getTime() - new Date().getTime() //Future Time(secs) -Current Time(sec)
             this.autoLogout(expiresIn)
         }
             
