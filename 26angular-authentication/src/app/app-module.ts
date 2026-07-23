@@ -9,16 +9,13 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { CreateTaskComponent } from './dashboard/create-task/create-task.component';
-import { TaskDetailsComponent } from './dashboard/task-details/task-details.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptorService } from './Services/auth-interceptor.service';
-import { LoggingInterceptorService } from './Services/logging-interceptor.servive';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { SharedModule } from './shared.module';
 
 @NgModule({
   declarations: [
@@ -26,11 +23,12 @@ import { DashboardModule } from './dashboard/dashboard.module';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    LoginComponent,
+    LoginComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, AppRoutingModule,
-    //formsModule removed as NOW IT IMPORTED in sharedModule
-    DashboardModule
+  imports: [BrowserModule, AppRoutingModule,
+    DashboardModule,
+    ReactiveFormsModule,
+    //formsModule and ReactiveFormsModule removed as NOW IT IMPORTED in sharedModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

@@ -7,6 +7,7 @@ import { CreateTaskComponent } from "./create-task/create-task.component";
 import { TaskDetailsComponent } from "./task-details/task-details.component";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "../shared.module";
+import { FormsModule } from "@angular/forms";
 
 // A feature module is a way of organizing all components,pipe,directives etc related to same feature together
 // We are now creating dashboard into featured module
@@ -27,11 +28,15 @@ import { SharedModule } from "../shared.module";
         DashboardComponent,
         CreateTaskComponent,
         TaskDetailsComponent,
-
+        SharedModule
     ],
     imports: [
         CommonModule,
-        SharedModule
+        FormsModule,
+        SharedModule  // I have imported SharedModule which contains shared component declaration,directives,common import etc
+        // We will not import SharedModule twice in both Dashboard and app module instead we need to import DashboardModule to appModule ,so we will add export in DashboardModule ,through which sharedModule will also 
+        // availble to appModule
+        
     ]
 })
 export class DashboardModule {
