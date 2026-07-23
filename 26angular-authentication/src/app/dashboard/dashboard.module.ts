@@ -9,28 +9,31 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared.module';
 import { FormsModule } from '@angular/forms';
 import { Overview } from './overview/overview';
-import { RouterModule, Routes } from '@angular/router';
 import { Stats } from './stats/stats';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 // A feature module is a way of organizing all components,pipe,directives etc related to same feature together
 // We are now creating dashboard into featured module
 
 // To declare a module use @NgModule annotation
 
-export const routes: Routes = [];
+
 
 @NgModule({
-  declarations: [DashboardComponent, CreateTaskComponent, TaskDetailsComponent, Overview, Stats],
-  // All the components declared in Featured Module also need to export bcoz they are using in app-routing-module which itself is used in app module
-  // As mentioned above ,Loader Snackbar can't be declared here(Dashboard Module) as it is already declared in AppModule ,so for all components whic are shared between two modules,we will
-  // move into sharedModule ,then import SharedModule in dashboardModule and then import dashboardModule in AppModule (so it will available in both module)
-  exports: [DashboardComponent, CreateTaskComponent, TaskDetailsComponent, SharedModule],
-  imports: [
-    CommonModule,
-    FormsModule,
-    SharedModule, // I have imported SharedModule which contains shared component declaration,directives,common import etc
-    // We will not import SharedModule twice in both Dashboard and app module instead we need to import DashboardModule to appModule ,so we will add export in DashboardModule ,through which sharedModule will also
-    // availble to appModule
-  ],
+    declarations: [DashboardComponent, CreateTaskComponent, TaskDetailsComponent, Overview, Stats],
+    // All the components declared in Featured Module also need to export bcoz they are using in app-routing-module which itself is used in app module
+    // As mentioned above ,Loader Snackbar can't be declared here(Dashboard Module) as it is already declared in AppModule ,so for all components whic are shared between two modules,we will
+    // move into sharedModule ,then import SharedModule in dashboardModule and then import dashboardModule in AppModule (so it will available in both module)
+    exports: [SharedModule], 
+    // now export of declarted component is removed bcoz previously these component routing handled by app-routing module so we need to export but now its routing is handled by dashboard routing module so no need to export
+    imports: [
+        CommonModule,
+        FormsModule,
+        SharedModule, // I have imported SharedModule which contains shared component declaration,directives,common import etc
+        // We will not import SharedModule twice in both Dashboard and app module instead we need to import DashboardModule to appModule ,so we will add export in DashboardModule ,through which sharedModule will also
+        // availble to appModule
+        DashboardRoutingModule
+
+    ],
 })
-export class DashboardModule {}
+export class DashboardModule { }
