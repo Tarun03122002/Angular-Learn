@@ -48,7 +48,7 @@ export class LoginComponent {
         next: (resp) => {
           console.log("Login", resp);
           this.isLoading = false
-          this.router.navigate(['/dashboard'])
+          this.router.navigateByUrl('/dashboard/overview')
         },
         error: (message) => {
           this.setErrorMessage(message)
@@ -60,7 +60,7 @@ export class LoginComponent {
         next: (data) => {
           console.log("Sign up ", data);
           this.isLoading = false
-          this.router.navigate(['/dashboard'])
+          this.router.navigateByUrl('/dashboard/overview')
         },
         error: (errorMessage) => {
           this.setErrorMessage(errorMessage)
