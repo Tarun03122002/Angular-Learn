@@ -20,21 +20,22 @@ import { AuthInterceptorService } from './Services/auth-interceptor.service';
 import { LoggingInterceptorService } from './Services/logging-interceptor.servive';
 import { Loader } from './Utility/loader/loader';
 import { Snackbar } from './Utility/snackbar/snackbar';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
     App,
     HeaderComponent,
     FooterComponent,
-    DashboardComponent,
-    CreateTaskComponent,
-    TaskDetailsComponent,
     HomeComponent,
     LoginComponent,
     Loader,
     Snackbar,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, AppRoutingModule,
+
+    DashboardModule
+  ],
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptorsFromDi()),
@@ -44,4 +45,4 @@ import { Snackbar } from './Utility/snackbar/snackbar';
   ],
   bootstrap: [App],
 })
-export class AppModule {}
+export class AppModule { }
