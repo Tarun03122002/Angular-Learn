@@ -10,13 +10,9 @@ import { App } from './app';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { AuthInterceptorService } from './Services/auth-interceptor.service';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { SharedModule } from './shared.module';
 import { CoreModule } from './core-module';
+import { AuthModule } from './login/auth-module';
 
 @NgModule({
   declarations: [
@@ -24,11 +20,10 @@ import { CoreModule } from './core-module';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    LoginComponent
   ],
   imports: [BrowserModule, AppRoutingModule,
     DashboardModule,
-    ReactiveFormsModule,
+    AuthModule,
     //formsModule and ReactiveFormsModule removed as NOW IT IMPORTED in sharedModule
     CoreModule
   ],

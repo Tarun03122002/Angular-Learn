@@ -2,17 +2,23 @@ import { NgModule } from "@angular/core";
 
 import { LoaderComponent } from "./Utility/loader/loader.component";
 import { SnackbarComponent } from "./Utility/snackbar/snackbar.component";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
-    declarations : [
+    declarations: [
         LoaderComponent,
         SnackbarComponent
     ],
-    exports:[
+    exports: [
         LoaderComponent,
-        SnackbarComponent
+        SnackbarComponent,
+        ReactiveFormsModule
+
     ],
+    imports: [
+        ReactiveFormsModule
+    ]
 })
-export class SharedModule{
+export class SharedModule {
 
 }
