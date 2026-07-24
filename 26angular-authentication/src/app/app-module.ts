@@ -16,6 +16,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { AuthInterceptorService } from './Services/auth-interceptor.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { SharedModule } from './shared.module';
+import { CoreModule } from './core-module';
 
 @NgModule({
   declarations: [
@@ -29,14 +30,9 @@ import { SharedModule } from './shared.module';
     DashboardModule,
     ReactiveFormsModule,
     //formsModule and ReactiveFormsModule removed as NOW IT IMPORTED in sharedModule
+    CoreModule
   ],
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withInterceptorsFromDi()),
-    provideZoneChangeDetection(),
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptorService, multi: true }
-  ],
+// MOVING PROVIDERS TO CORE MODULE
   bootstrap: [App],
 })
 export class AppModule { }
