@@ -1,0 +1,58 @@
+Angular Modules Notes
+
+What is a Module?
+
+-   An NgModule groups Angular building blocks such as components,
+    directives, services, and pipes.
+-   Every Angular application requires at least one root module
+    (AppModule), except standalone-component applications.
+-   Modules are decorated with @NgModule.
+
+Feature Module
+
+-   Organizes code related to a specific feature.
+-   Contains feature-specific components, directives, and pipes.
+-   Improves maintainability and modularity.
+
+Shared Module
+
+-   Contains reusable components, directives, and pipes.
+-   Imported by multiple feature modules.
+-   Components/pipes should be declared only once.
+
+Core Module
+
+-   Holds application-wide services, configuration, utilities, and
+    helper classes.
+-   Imported only once, usually in AppModule.
+
+Eager Loading
+
+-   Default Angular behavior.
+-   Loads all modules during application startup.
+-   Immediate availability but larger initial bundle.
+
+Lazy Loading
+
+-   Loads modules only when a route is visited.
+-   Benefits:
+    -   Faster initial load.
+    -   Smaller bundle size.
+    -   Better performance.
+-   Drawbacks:
+    -   Extra routing configuration.
+    -   Small delay on first access.
+
+Feature Module Points
+
+-   Declare feature-specific components inside the feature module.
+-   Export only components needed outside the module.
+-   Routed components should belong to the feature module.
+
+Service Providers
+
+-   providedIn: 'root' -> Single instance application-wide.
+-   AppModule -> Single application-wide instance.
+-   Component -> Separate instance per component tree.
+-   Eager-loaded Module -> Shared application-wide.
+-   Lazy-loaded Module -> Separate instance within that module.
