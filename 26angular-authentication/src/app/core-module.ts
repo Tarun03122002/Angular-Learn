@@ -6,6 +6,7 @@
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { NgModule, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from "@angular/core";
 import { AuthInterceptorService } from "./Services/auth-interceptor.service";
+import { CounterService } from "./Services/CounterService";
 
 // We can add services even in AppModule but to ensure line size(file content) of app module does not increase
 @NgModule({
@@ -14,6 +15,7 @@ import { AuthInterceptorService } from "./Services/auth-interceptor.service";
         provideHttpClient(withInterceptorsFromDi()),
         provideZoneChangeDetection(),
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+        CounterService //single instance of counter service will be used in main module or feature moduled if provided in app module or core module
         // { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptorService, multi: true }
     ]
 })
