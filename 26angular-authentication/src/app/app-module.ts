@@ -22,8 +22,8 @@ import { AuthModule } from './login/auth-module';
     HomeComponent,
   ],
   imports: [BrowserModule, AppRoutingModule,
-    DashboardModule,
-    AuthModule,
+    // DashboardModule, now we are lazy load dashboard module,so we have to remove import also ,other wise eager loading will be happen
+    // AuthModule, similarly remove AuthModule for lazy loading 
     //formsModule and ReactiveFormsModule removed as NOW IT IMPORTED in sharedModule
     CoreModule
   ],
@@ -31,3 +31,5 @@ import { AuthModule } from './login/auth-module';
   bootstrap: [App],
 })
 export class AppModule { }
+// SharedModule will be loaded based on where it is used ,if it is in AppModule(which is eagerly loaded),then sharedmodule will also be eagerly loaded,
+// if sharedmodule is used in either AuthModule or DashboardModule(which is lazy loaded),so sharedmodule then will be lazy load 

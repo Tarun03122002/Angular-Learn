@@ -4,9 +4,10 @@ import { canActivate } from "../Guard/auth.guard";
 import { Overview } from "./overview/overview";
 import { Stats } from "./stats/stats";
 
+// Lazy Load Dashboard Feature Module
 const routes: Routes = [
     {
-        path: 'dashboard', canActivate: [canActivate], children: [
+        path: '', canActivate: [canActivate], children: [
             { path: 'overview', component: Overview },
             { path: "stats", component: Stats }
         ]
