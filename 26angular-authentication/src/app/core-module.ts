@@ -16,6 +16,9 @@ import { CounterService } from "./Services/CounterService";
         provideZoneChangeDetection(),
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
         CounterService //single instance of counter service will be used in main module or feature moduled if provided in app module or core module
+
+        // now counterservice is provided separtely for dashboard feature (lazy load module),so it's instance will be separate,
+        // and here counterService instance will be used in header and Login component
         // { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptorService, multi: true }
     ]
 })

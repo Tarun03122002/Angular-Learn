@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { Overview } from './overview/overview';
 import { Stats } from './stats/stats';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { CounterService } from '../Services/CounterService';
 
 // A feature module is a way of organizing all components,pipe,directives etc related to same feature together
 // We are now creating dashboard into featured module
@@ -35,5 +36,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
         DashboardRoutingModule
 
     ],
+    providers:[
+        CounterService //if service is provided in lazy load module,then sepaarte instance will be used for that lazy load module
+    ]
 })
 export class DashboardModule { }
