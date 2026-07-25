@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../Services/Auth.Service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CounterService } from '../Services/CounterService';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,9 +26,10 @@ export class LoginComponent {
 
   login!: Subscription
   signUp!: Subscription
+  counterService : CounterService = inject(CounterService)
 
   ngOnInit() {
-
+    this.counterService.increaseCounter("Login Component (Feature Module)")
     this.createForm()
   }
 

@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, Input, ViewChild, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Task } from '../../Model/Task';
+import { CounterService } from '../../Services/CounterService';
 
 @Component({
   selector: 'app-create-task',
@@ -22,6 +23,11 @@ export class CreateTaskComponent {
   @Output()
   EmitTaskData: EventEmitter<Task> = new EventEmitter<Task>();
 
+  counterService : CounterService = inject(CounterService)
+
+  ngOnInit(){
+    this.counterService.increaseCounter('Create Task (Feature Module)')
+  }
   ngAfterViewInit() {
     setTimeout(() => {
       this.taskForm.form.patchValue(this.selectedTask);
