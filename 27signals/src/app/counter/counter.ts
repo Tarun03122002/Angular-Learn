@@ -9,7 +9,7 @@ import { Component, signal } from '@angular/core';
 export class Counter {
   // signal is a function we can pass default value in signal ,to specify type of value it is stored use <>
   counter = signal<number>(0) //creating a signal
-  messages : string [] = []
+  messages = signal<string[]>([])
 
   // useing a signal ->counter()
 
@@ -25,11 +25,14 @@ export class Counter {
     // this.counter.set(this.counter() + 1)
     this.counter.update((previousValue) => previousValue+1)
     console.log(this.counter());
+    this.messages.update((prevValue) => [...prevValue,'Current counter Value :'+this.counter()])
     
   }
 
   decreement(){
     if(this.counter() >=1)
     this.counter.update((previousValue) => previousValue-1)
+
+    this.messages.update((prevValue) => prevValue.filter((ele,index)=> index != this.messages()?.length-1))
   }
 }

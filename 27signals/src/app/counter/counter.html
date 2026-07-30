@@ -5,8 +5,8 @@
         <button (click)="increement()">Increement</button>
 
     </div>
-    <div>
-        @for(message of messages; track $index ){
+    <div style="display: flex; flex-direction: column; gap:20px;">
+        @for(message of messages(); track $index ){
             <div style="background-color: blue;">{{message}}</div>
         }
     </div>
