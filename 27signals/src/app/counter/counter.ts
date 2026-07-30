@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
@@ -7,20 +7,21 @@ import { Component } from '@angular/core';
   styleUrl: './counter.scss',
 })
 export class Counter {
-  counter : number = 0
+  // signal is a function we can pass default value in signal ,to specify type of value it is stored use <>
+  counter = signal<number>(0) //creating a signal
   messages : string [] = []
 
+  // useing a signal ->counter()
 
   ngOnInit(){
 
   }
 
   increement(){
-    this.counter++
+    this.counter
   }
 
   decreement(){
-    if(this.counter>=1)
-    this.counter--
+    this.counter
   }
 }
