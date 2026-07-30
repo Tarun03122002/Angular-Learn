@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
@@ -11,8 +11,21 @@ export class Counter {
   counter = signal<number>(0) //creating a signal
   messages = signal<string[]>([])
 
+  doubleCounter = computed(() => this.counter() * 2) //computed doubleCounter signal will be computed whenver counter signal value will be updated,
+  // whenever counter signal value is changed ,it will rerender only the doubleCounter() value in ui (Angular will not rerender entire component .That's the benifit of signals)
+
   // useing a signal ->counter()
 
+  // effect whenvere signal value update ,and we want to perform some logic ,use effect signal in constructor
+
+  constructor(){
+    effect(() => {
+      // console.log("Counter value change",this.counter());
+      console.log("Counter value changed but we are not using signal inside effect ,so it will not log,It will call effect if signal inside effect is used and its value will be changed");
+      
+      
+    })
+  }
   ngOnInit(){
 
   }
