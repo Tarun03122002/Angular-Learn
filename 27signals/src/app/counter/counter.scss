@@ -1,0 +1,16 @@
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col{
+    display: flex;
+    gap: 20px
+}
+
+button{
+    cursor: pointer;
+}

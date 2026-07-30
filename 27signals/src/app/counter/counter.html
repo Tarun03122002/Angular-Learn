@@ -1,0 +1,13 @@
+<div class='container'>
+    <div class="col">
+        <button (click)="decreement()">Decreement</button>
+        <span>{{counter}}</span>
+        <button (click)="increement()">Increement</button>
+
+    </div>
+    <div>
+        @for(message of messages; track $index ){
+            <div style="background-color: blue;">{{message}}</div>
+        }
+    </div>
+</div>
