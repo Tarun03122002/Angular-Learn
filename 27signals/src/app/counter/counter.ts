@@ -18,34 +18,34 @@ export class Counter {
 
   // effect whenvere signal value update ,and we want to perform some logic ,use effect signal in constructor
 
-  constructor(){
+  constructor() {
     effect(() => {
       // console.log("Counter value change",this.counter());
       console.log("Counter value changed but we are not using signal inside effect ,so it will not log,It will call effect if signal inside effect is used and its value will be changed");
-      
-      
+
+
     })
   }
-  ngOnInit(){
+  ngOnInit() {
 
   }
 
   // updating value of signal
   // set method -> to set value but it does not have access of previous value
-  // update ->  to update value of immutable(string,number,boolean) but it has access of previous value using callback -> It does not overrirde instead create a new value and updates the reference
-  // mutate -> to mutate value of mutable(array,object) but it has access of previous value using callback -> It overrides the existing value to update
-  increement(){
+  // update ->  to update value of immutable(string,number,boolean,array and object) but it has access of previous value using callback -> It does not overrirde instead create a new value and updates the reference
+  //  The legacy .mutate() method was fully deprecated and removed. Always treat your signal state as immutable.
+  increement() {
     // this.counter.set(this.counter() + 1)
-    this.counter.update((previousValue) => previousValue+1)
+    this.counter.update((previousValue) => previousValue + 1)
     console.log(this.counter());
-    this.messages.update((prevValue) => [...prevValue,'Current counter Value :'+this.counter()])
-    
+    this.messages.update((prevValue) => [...prevValue, 'Current counter Value :' + this.counter()])
+
   }
 
-  decreement(){
-    if(this.counter() >=1)
-    this.counter.update((previousValue) => previousValue-1)
+  decreement() {
+    if (this.counter() >= 1)
+      this.counter.update((previousValue) => previousValue - 1)
 
-    this.messages.update((prevValue) => prevValue.filter((ele,index)=> index != this.messages()?.length-1))
+    this.messages.update((prevValue) => prevValue.filter((ele, index) => index != this.messages()?.length - 1))
   }
 }
