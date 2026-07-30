@@ -17,11 +17,19 @@ export class Counter {
 
   }
 
+  // updating value of signal
+  // set method -> to set value but it does not have access of previous value
+  // update ->  to update value of immutable(string,number,boolean) but it has access of previous value using callback -> It does not overrirde instead create a new value and updates the reference
+  // mutate -> to mutate value of mutable(array,object) but it has access of previous value using callback -> It overrides the existing value to update
   increement(){
-    this.counter
+    // this.counter.set(this.counter() + 1)
+    this.counter.update((previousValue) => previousValue+1)
+    console.log(this.counter());
+    
   }
 
   decreement(){
-    this.counter
+    if(this.counter() >=1)
+    this.counter.update((previousValue) => previousValue-1)
   }
 }
