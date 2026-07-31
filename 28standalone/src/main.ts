@@ -1,7 +1,10 @@
-import { platformBrowser } from '@angular/platform-browser';
-import { AppModule } from './app/app-module';
+import { bootstrapApplication,  } from '@angular/platform-browser';
+import { App } from './app/app';
+import { provideBrowserGlobalErrorListeners } from '@angular/core';
+ //In appmodule ->IN BOOTSTRAP array WE CANNOT ADD standalone components
 
-platformBrowser().bootstrapModule(AppModule, {
-  
+bootstrapApplication(App,{
+    providers: [provideBrowserGlobalErrorListeners()],
+
 })
   .catch(err => console.error(err));
