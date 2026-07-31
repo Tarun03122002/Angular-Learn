@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { ActionService } from '../../shared/Action.service';
-import { SharedModule } from '../../shared/shared.module';
+import { HighlightDirective } from '../../shared/app-highlight.directive';
 
 //  Creating detail into standalone component
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports:[SharedModule],
+  imports:[HighlightDirective],
   templateUrl: './detail.html',
   styleUrl: './detail.scss',
 })
