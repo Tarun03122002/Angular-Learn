@@ -1,0 +1,16 @@
+<div style="display: flex; flex-direction: column; gap:20px;">
+    <h3>Standalone componnet</h3>
+    <div appHighlight>
+
+        <p>Standalone component if using any depenedency ,then it must import that depenendncy in that standalon
+            ccomponent
+        </p>
+        <p>Standalone component can be used together with normal components or inside ngModule but their motive is to
+            get rid of NgModule,
+            so that our boiler platecode of ngModule will not get increased.Also if decalartion,import ,exports issue in
+            ngModule,then app will not work.This the amin reason to introduce Standalone
+            componentS.
+    </div>
+
+    <button style="width: fit-content;" (click)="onButtonClick()">{{btnName}}</button>
+</div>

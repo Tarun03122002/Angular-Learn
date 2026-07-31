@@ -20,8 +20,8 @@ export class Counter {
 
   constructor() {
     effect(() => {
-      // console.log("Counter value change",this.counter());
-      console.log("Counter value changed but we are not using signal inside effect ,so it will not log,It will call effect if signal inside effect is used and its value will be changed");
+      console.log("Counter value change");
+      // console.log("Counter value changed but we are not using signal inside effect ,so it will not log,It will call effect if signal inside effect is used and its value will be changed");
 
 
     })
