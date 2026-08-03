@@ -5,7 +5,7 @@ import { FeaturedCourses } from "./featured-courses/featured-courses";
 
 const courses : Routes = [
     {
-        path:'courses',component:Courses
+        path:'',component:Courses
     },
     {
         path:'featured-courses',component:FeaturedCourses
