@@ -9,7 +9,7 @@ const routes: Routes = [
 
   },
   {
-    path : 'about',component : About
+    path : 'about',loadComponent : () => import('./about/about').then((m) => m.About)
   },
   {
     path:'courses',
